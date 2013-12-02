@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Iceux</title>
+    <meta name="description" content="">
+    <meta name="author" content="Iceux">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="http://Iceux.me/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="http://Iceux.me/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/local.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<div class="header">
+                <ul class="nav nav-pills pull-right">
+                    <li class=""><a href="http://Iceux.me">Home</a></li>
+                    <li><a href="http://Iceux.me/pages/about.html">About</a></li>
+                    <li class=""><a href="http://Iceux.me/archives.html">Archives</a></li>
+
+                    <li class=""><a href="http://Iceux.me/tags.html">Tags</a></li>
+                </ul>
+                <h3 class="text-muted"><a href="http://Iceux.me">Iceux</a></h3>
+         </div>
+
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+    <div class='article'>
+        <div class="content-title">
+            <h1>CentOS 下编译安装Mysql 5.6.14</h1>
+Mon 11 November 2013
+
+by <a class="url fn" href="http://Iceux.me/author/iceux.html">Iceux</a>
+ 
+
+
+        </div>
+	
+        <div><p>下载源码：<br />
+<a href="http://dev.mysql.com/downloads/mysql/">点击这里</a><br />
+添加用户和组  </p>
+<div class="highlight"><pre>groupadd mysql
+useradd mysql -g mysql -M -s /sbin/nologin
+<span class="sb">```</span>bash
+解压源码
+<span class="sb">```</span>bash
+tar -xzvf mysql.....
+</pre></div>
+
+
+<p>编译</p>
+<div class="highlight"><pre>    cmake <span class="se">\</span>
+    -DCMAKE_INSTALL_PREFIX<span class="o">=</span>/usr/local/mysql <span class="se">\ </span><span class="c">#安装路径</span>
+    -DMYSQL_DATADIR<span class="o">=</span>/usr/local/mysql/data <span class="se">\ </span><span class="c">#数据文件存放位置</span>
+    -DSYSCONFDIR<span class="o">=</span>/etc <span class="se">\ </span><span class="c">#my.cnf路径</span>
+    -DWITH_MYISAM_STORAGE_ENGINE<span class="o">=</span>1 <span class="se">\ </span><span class="c">#支持MyIASM引擎</span>
+    -DWITH_INNOBASE_STORAGE_ENGINE<span class="o">=</span>1 <span class="se">\ </span><span class="c">#支持InnoDB引擎</span>
+    -DWITH_MEMORY_STORAGE_ENGINE<span class="o">=</span>1 <span class="se">\ </span><span class="c">#支持Memory引擎</span>
+    -DWITH_READLINE<span class="o">=</span>1 <span class="se">\ </span><span class="c">#快捷键功能</span>
+    -DMYSQL_UNIX_ADDR<span class="o">=</span>/tmp/mysqld.sock <span class="se">\ </span><span class="c">#连接数据库socket路径</span>
+    -DMYSQL_TCP_PORT<span class="o">=</span>3306 <span class="se">\ </span><span class="c">#端口</span>
+    -DENABLED_LOCAL_INFILE<span class="o">=</span>1 <span class="se">\ </span><span class="c">#允许从本地导入数据</span>
+    -DWITH_PARTITION_STORAGE_ENGINE<span class="o">=</span>1 <span class="se">\ </span><span class="c">#安装支持数据库分区</span>
+    -DEXTRA_CHARSETS<span class="o">=</span>all <span class="se">\ </span><span class="c">#安装所有的字符集</span>
+    -DDEFAULT_CHARSET<span class="o">=</span>utf8 <span class="se">\ </span><span class="c">#默认字符</span>
+    -DDEFAULT_COLLATION<span class="o">=</span>utf8_general_ci
+
+
+
+
+
+    make &amp;make install
+</pre></div>
+
+
+<p>安装数据库</p>
+<div class="highlight"><pre>    scripts/mysql_install_db --user<span class="o">=</span>mysql --basedir<span class="o">=</span>/usr/local/mysql --datadir<span class="o">=</span>/usr/local/mysql/data
+</pre></div>
+
+
+<p>ps：如果用/usr/local/mysql/scripts/mysql_install_db --user=mysql
+有可能会报如下错误：</p>
+<div class="highlight"><pre>    FATAL ERROR: Could not find ./bin/my_print_defaults 
+    If you are using a binary release, you must run this script from 
+    within the directory the archive extracted into. If you compiled 
+    MySQL yourself you must run <span class="s1">&#39;make install&#39;</span> first.
+</pre></div>
+
+
+<p>之后根据提示设置密码，修改配置文件</p>
+<div class="highlight"><pre>    To start mysqld at boot <span class="nb">time </span>you have to copy
+    support-files/mysql.server to the right place <span class="k">for </span>your system
+
+    PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
+    To <span class="k">do </span>so, start the server, <span class="k">then </span>issue the following commands:
+
+      /usr/local/mysql/bin/mysqladmin -u root password <span class="s1">&#39;new-password&#39;</span>
+      /usr/local/mysql/bin/mysqladmin -u root -h master password <span class="s1">&#39;new-password&#39;</span>
+
+    Alternatively you can run:
+
+      /usr/local/mysql/bin/mysql_secure_installation
+
+    which will also give you the option of removing the <span class="nb">test</span>
+<span class="nb">    </span>databases and anonymous user created by default.  This is
+    strongly recommended <span class="k">for </span>production servers.
+
+    See the manual <span class="k">for </span>more instructions.
+
+    You can start the MySQL daemon with:
+
+      <span class="nb">cd</span> . ; /usr/local/mysql/bin/mysqld_safe &amp;
+
+    You can <span class="nb">test </span>the MySQL daemon with mysql-test-run.pl
+
+      <span class="nb">cd </span>mysql-test ; perl mysql-test-run.pl
+
+    Please report any problems with the ./bin/mysqlbug script!
+
+    The latest information about MySQL is available on the web at
+
+      http://www.mysql.com
+
+    Support MySQL by buying support/licenses at http://shop.mysql.com
+
+    New default config file was created as /usr/local/mysql/my.cnf and
+    will be used by default by the server when you start it.
+    You may edit this file to change server settings
+</pre></div></div>
+	
+        <hr>
+    	   
+        <h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'iceux'; 
+    var disqus_title = 'CentOS 下编译安装Mysql 5.6.14';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+        </div>
+        
+        <div class="span3">
+
+            <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                <li><a href="https://Iceux.me/feeds/all.atom.xml">&nbspRSS</a></li>
+                <li><a href="mailto:Iceux@Iceux.me">&nbspMail</a></li>
+                <li><a href="http://weibo.com/Iceux">&nbsp微博</a></li>
+                <li><a href="https://twitter.com/Iceux">&nbspTwitter</a></li>
+            </ul>
+            </div>
+            </div>
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="http://Iceux.me/category/cc.html">C/C++</a></li>
+                <li><a href="http://Iceux.me/category/linuxunix.html">Linux/Unix</a></li>
+                <li><a href="http://Iceux.me/category/windows.html">windows</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+                <li><a href="http://python.org/">Python.org</a></li>
+                <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+            </ul>
+            </div>
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="http://Iceux.me">Iceux</a> &copy; Iceux 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<!--<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>-->
+ 
+</body>
+</html>

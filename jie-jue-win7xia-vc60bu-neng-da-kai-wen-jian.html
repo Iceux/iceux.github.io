@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Iceux</title>
+    <meta name="description" content="">
+    <meta name="author" content="Iceux">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="http://Iceux.me/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="http://Iceux.me/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/local.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<div class="header">
+                <ul class="nav nav-pills pull-right">
+                    <li class=""><a href="http://Iceux.me">Home</a></li>
+                    <li><a href="http://Iceux.me/pages/about.html">About</a></li>
+                    <li class=""><a href="http://Iceux.me/archives.html">Archives</a></li>
+
+                    <li class=""><a href="http://Iceux.me/tags.html">Tags</a></li>
+                </ul>
+                <h3 class="text-muted"><a href="http://Iceux.me">Iceux</a></h3>
+         </div>
+
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+    <div class='article'>
+        <div class="content-title">
+            <h1>解决win7下vc6.0不能打开文件</h1>
+Fri 13 April 2012
+
+by <a class="url fn" href="http://Iceux.me/author/iceux.html">Iceux</a>
+ 
+
+
+        </div>
+	
+        <div><p>visual c++ 6.0 是Microsoft 与1998年推出的IDE，虽然年代久远，Microsoft也推出了许多后续版本如visual studio 2008 及visual studio 2010 但时下仍有许多人在使用这个古董级的软件，并不是由于新版本的IDE不好，更多的是由于许许多多的Project 文件早期是由vc++6.0 所创建，如果迁移到新版的vs2010上多多少少会存在些问题.当然也由于vc++6.0 界面相对简洁，很适合新手使用及许多教材仍然使用vc++6.0作为指定的软件的缘故，因此vc++6.0仍然有许多使用者(尤其是学生).但，如果你使用的操作系统是Windows7，而且还装了office 2010,如果你还打算装个vc++6.0 那么很不幸，你可能会碰到你给抓狂的问题:
+<img alt="img" src="https://lh5.googleusercontent.com/-rHB4igQ6G6k/UpnnMaCSEaI/AAAAAAAAAIk/QsUgDlW4LzE/s800/20120413_181050-300x144.png" />  </p>
+<p>出现这中情况是因为你点击了File-&gt;Open 或Project-&gt;Add File to</p>
+<p><strong>解决办法：</strong><br />
+1.<a href="http://Iceux.net/wp-content/uploads/2012/11/20120413_211321.rar">下载</a>解压得到FileToll.dll<br />
+2.打开vc6.0 点击菜单栏里的Tools-&gt;Coustomize 再选择选项卡如下图:<br />
+<img alt="img" src="https://lh4.googleusercontent.com/-o9Z7bf3EsGU/UpnnMTFlOjI/AAAAAAAAAIs/jG3uTrcuMc8/s800/20120413_212316-300x190.jpg" /><br />
+点击Browse选择刚才下载解压出的文件，打开之后会在界面上出现：<br />
+<img alt="img" src="https://lh4.googleusercontent.com/-YkpfbcLPVSQ/UpnnMeLFldI/AAAAAAAAAIo/VGF516Ohpkc/s800/20120413_212814.jpg" /><br />
+此时拖动A和O分别至File菜单下，和Project下。<br />
+3.点击菜单栏里的Tools-&gt;Coustomize 再选择选项卡如下图：<br />
+<img alt="img" src="https://lh3.googleusercontent.com/-2DzTZr2kgAA/UpnnNYPEDNI/AAAAAAAAAI8/37BMriR0eUg/s800/20120413_213413-300x190.jpg" /> <br />
+此时点击菜单Files呈现这样:<br />
+<img alt="img" src="https://lh6.googleusercontent.com/-7odHwm-dnUo/UpnnNVHjwzI/AAAAAAAAAI4/kXlVdPTeCKQ/s800/20120413_213702.jpg" /><br />
+此时你可以选中Open 和Add Files 并按delete删除，至此大功告成，但千万别忘了这次退出时已经要点击File-&gt;Exit,只有这样才会保存刚才的设置，否则。。呵呵下次打开还的再来一次。</p></div>
+	
+        <hr>
+    	   
+        <h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'iceux'; 
+    var disqus_title = '解决win7下vc6.0不能打开文件';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+        </div>
+        
+        <div class="span3">
+
+            <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                <li><a href="https://Iceux.me/feeds/all.atom.xml">&nbspRSS</a></li>
+                <li><a href="mailto:Iceux@Iceux.me">&nbspMail</a></li>
+                <li><a href="http://weibo.com/Iceux">&nbsp微博</a></li>
+                <li><a href="https://twitter.com/Iceux">&nbspTwitter</a></li>
+            </ul>
+            </div>
+            </div>
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="http://Iceux.me/category/cc.html">C/C++</a></li>
+                <li><a href="http://Iceux.me/category/linuxunix.html">Linux/Unix</a></li>
+                <li><a href="http://Iceux.me/category/windows.html">windows</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+                <li><a href="http://python.org/">Python.org</a></li>
+                <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+            </ul>
+            </div>
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="http://Iceux.me">Iceux</a> &copy; Iceux 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<!--<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>-->
+ 
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Iceux</title>
+    <meta name="description" content="">
+    <meta name="author" content="Iceux">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="http://Iceux.me/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="http://Iceux.me/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/local.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<div class="header">
+                <ul class="nav nav-pills pull-right">
+                    <li class=""><a href="http://Iceux.me">Home</a></li>
+                    <li><a href="http://Iceux.me/pages/about.html">About</a></li>
+                    <li class=""><a href="http://Iceux.me/archives.html">Archives</a></li>
+
+                    <li class=""><a href="http://Iceux.me/tags.html">Tags</a></li>
+                </ul>
+                <h3 class="text-muted"><a href="http://Iceux.me">Iceux</a></h3>
+         </div>
+
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+    <div class='article'>
+        <div class="content-title">
+            <h1>'ab压测中出现"apr_poll: The timeout specified has expired (70007)"'</h1>
+Wed 13 November 2013
+
+by <a class="url fn" href="http://Iceux.me/author/iceux.html">Iceux</a>
+ 
+
+
+        </div>
+	
+        <div><p><strong>原因</strong>：<br />
+TCP连接耗尽：
+tail /var/log/message  可以看到：</p>
+<div class="highlight"><pre>kernel: ip_conntrack: table full, dropping packet.
+</pre></div>
+
+
+<p><strong>解决办法：</strong><br />
+查看ip_conntrack_max 值：</p>
+<div class="highlight"><pre>cat /proc/sys/net/ipv4/netfilter/ip_conntrack_max
+</pre></div>
+
+
+<p>增大：  </p>
+<div class="highlight"><pre><span class="nb">echo</span> ”xxxxxx“&gt;/proc/sys/net/ipv4/netfilter/ip_conntrack_max
+</pre></div></div>
+	
+        <hr>
+    	   
+        <h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'iceux'; 
+    var disqus_title = ''ab压测中出现"apr_poll: The timeout specified has expired (70007)"'';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+        </div>
+        
+        <div class="span3">
+
+            <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                <li><a href="https://Iceux.me/feeds/all.atom.xml">&nbspRSS</a></li>
+                <li><a href="mailto:Iceux@Iceux.me">&nbspMail</a></li>
+                <li><a href="http://weibo.com/Iceux">&nbsp微博</a></li>
+                <li><a href="https://twitter.com/Iceux">&nbspTwitter</a></li>
+            </ul>
+            </div>
+            </div>
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="http://Iceux.me/category/cc.html">C/C++</a></li>
+                <li><a href="http://Iceux.me/category/linuxunix.html">Linux/Unix</a></li>
+                <li><a href="http://Iceux.me/category/windows.html">windows</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+                <li><a href="http://python.org/">Python.org</a></li>
+                <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+            </ul>
+            </div>
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="http://Iceux.me">Iceux</a> &copy; Iceux 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<!--<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>-->
+ 
+</body>
+</html>

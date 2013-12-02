@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Iceux</title>
+    <meta name="description" content="">
+    <meta name="author" content="Iceux">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="http://Iceux.me/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="http://Iceux.me/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/local.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<div class="header">
+                <ul class="nav nav-pills pull-right">
+                    <li class="active"><a href="http://Iceux.me">Home</a></li>
+                    <li><a href="http://Iceux.me/pages/about.html">About</a></li>
+                    <li class=""><a href="http://Iceux.me/archives.html">Archives</a></li>
+
+                    <li class=""><a href="http://Iceux.me/tags.html">Tags</a></li>
+                </ul>
+                <h3 class="text-muted"><a href="http://Iceux.me">Iceux</a></h3>
+         </div>
+
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+        
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="http://Iceux.me/postfix-ji-ben-pei-zhi.html"><h1>Postfix 基本配置</h1></a>
+Sat 23 November 2013
+
+by <a class="url fn" href="http://Iceux.me/author/iceux.html">Iceux</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><p>CentOS 5.X系统下默认使用的MTA是sendmail，安装postfix之前需要先卸载sendmail。<br />
+<strong>卸载sendmail</strong>  </p>
+<div class="highlight"><pre><span class="o">[</span>root@MyVPS ~<span class="o">]</span><span class="c"># yum remove sendmail</span>
+</pre></div>
+
+
+<p><strong>安装postfix</strong>  </p>
+<div class="highlight"><pre><span class="o">[</span>root@MyVPS ~<span class="o">]</span><span class="c"># yum install postfix</span>
+</pre></div>
+
+
+<p><strong>更改默认MTA为postfix</strong>  </p>
+<div class="highlight"><pre><span class="o">[</span>root@MyVPS ~<span class="o">]</span><span class="c"># /usr/sbin/alternatives --set mta /usr/sbin/sendmail.postfix</span>
+</pre></div>
+
+
+<p><strong>配置文件</strong> 
+配置文件在/etc/postfix/main.cf，默认安装情况下，postfix 的监听地址是localhost，如果只是用来发送邮件，默认配置就行。<br />
+<strong>测试发信</strong>  </p>
+<div class="highlight"><pre><span class="o">[</span>root@MyVPS ~<span class="o">]</span><span class="c"># echo &quot;test&quot;|mail -s &quot;title&quot; XXX@XXX.com</span>
+</pre></div>
+
+
+<p>之后可以去自己邮箱查看有没有收到。
+以上只是一些简单的发信配置，如果要配置收信可以参考<a href="http://vbird.dic.ksu.edu.tw/linux_server/0380mail_2.php">postfix详细设置</a>
+如果要支持POP3/IMAP 则需要安装devecot,具体参见<a href="http://vbird.dic.ksu.edu.tw/linux_server/0380mail_3.php">这里</a>
+附上信件传送流程与收信流程图：
+<img alt="mail-flow" src="https://lh5.googleusercontent.com/-KTFOLYUJsbA/Upnf6Qy6MUI/AAAAAAAAAHs/THG-cW7PlBI/s800/mail-flow.gif" /><br />
+<strong>其他：</strong><br />
+postfix如何将收到的邮件自动转发到指定邮箱？<br />
+在配置文件最后增加：always_bcc=XXX@XXX.com.</p></div>
+        <hr />
+    </div>
+		
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://Iceux.me/abya-ce-zhong-chu-xian-apr_poll-the-timeout-specified-has-expired-70007.html"><h2>'ab压测中出现"apr_poll: The timeout specified has expired (70007)"'</h2></a>
+        <div class= "well small"> Wed 13 November 2013
+
+by <a class="url fn" href="http://Iceux.me/author/iceux.html">Iceux</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><strong>原因</strong>：<br />
+TCP连接耗尽：
+tail /var/log/message  可以看到：</p>
+<div class="highlight"><pre>kernel: ip_conntrack: table full, dropping packet.
+</pre></div>
+
+
+<p><strong>解决办法：</strong><br />
+查看ip_conntrack_max 值：</p>
+<div class="highlight"><pre>cat /proc/sys/net/ipv4/netfilter/ip_conntrack_max
+</pre></div>
+
+
+<p>增大：  </p>
+<div class="highlight"><pre><span class="nb">echo</span> ”xxxxxx“&gt;/proc/sys/net/ipv4/netfilter/ip_conntrack_max
+</pre></div> <a class="btn btn-info xsmall" href="http://Iceux.me/abya-ce-zhong-chu-xian-apr_poll-the-timeout-specified-has-expired-70007.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://Iceux.me/centos-xia-bian-yi-an-zhuang-mysql-5614.html"><h2>CentOS 下编译安装Mysql 5.6.14</h2></a>
+        <div class= "well small"> Mon 11 November 2013
+
+by <a class="url fn" href="http://Iceux.me/author/iceux.html">Iceux</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>下载源码：<br />
+<a href="http://dev.mysql.com/downloads/mysql/">点击这里</a><br />
+添加用户和组  </p>
+<div class="highlight"><pre>groupadd mysql
+useradd mysql -g mysql -M -s /sbin/nologin
+<span class="sb">```</span>bash
+解压源码
+<span class="sb">```</span>bash
+tar -xzvf mysql.....
+</pre></div>
+
+
+<p>编译</p>
+<div class="highlight"><pre>    cmake <span class="se">\</span>
+    -DCMAKE_INSTALL_PREFIX<span class="o">=</span>/usr/local/mysql <span class="se">\ </span><span class="c">#安装路径</span>
+    -DMYSQL_DATADIR<span class="o">=</span>/usr/local/mysql/data <span class="se">\ </span><span class="c">#数据文件存放位置</span>
+    -DSYSCONFDIR<span class="o">=</span>/etc <span class="se">\ </span><span class="c">#my.cnf路径</span>
+    -DWITH_MYISAM_STORAGE_ENGINE<span class="o">=</span>1 <span class="se">\ </span><span class="c">#支持MyIASM引擎</span>
+    -DWITH_INNOBASE_STORAGE_ENGINE<span class="o">=</span>1 <span class="se">\ </span><span class="c">#支持InnoDB引擎</span>
+    -DWITH_MEMORY_STORAGE_ENGINE<span class="o">=</span>1 <span class="se">\ </span><span class="c">#支持Memory引擎</span>
+    -DWITH_READLINE<span class="o">=</span>1 <span class="se">\ </span><span class="c">#快捷键功能</span>
+    -DMYSQL_UNIX_ADDR<span class="o">=</span>/tmp ...</pre></div> <a class="btn btn-info xsmall" href="http://Iceux.me/centos-xia-bian-yi-an-zhuang-mysql-5614.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://Iceux.me/flash-dan-chu-she-zhi-dan-wu-fa-dian-ji-de-wen-ti.html"><h2>Flash 弹出设置但无法点击的问题</h2></a>
+        <div class= "well small"> Mon 07 October 2013
+
+by <a class="url fn" href="http://Iceux.me/author/iceux.html">Iceux</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>访问这个链接：<a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager07.html">http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager07</a> 进行设置</p> <a class="btn btn-info xsmall" href="http://Iceux.me/flash-dan-chu-she-zhi-dan-wu-fa-dian-ji-de-wen-ti.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://Iceux.me/cccheng-xu-nei-cun-fen-pei.html"><h2>C/C++程序内存分配</h2></a>
+        <div class= "well small"> Wed 22 May 2013
+
+by <a class="url fn" href="http://Iceux.me/author/iceux.html">Iceux</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>一个由C/C++编译的程序占用的内存分为以下几个部分</p>
+<p>1、栈区（stack）— 程序运行时由编译器自动分配，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。程序结束时由编译器自动释放。</p>
+<p>2、堆区（heap） — 在内存开辟另一块存储区域。一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS回收 。注意它与数据结构中的堆是两回事，分配方式倒是类似于链表，呵呵。</p>
+<p>3、全局区（静态区）（static）—编译器编译时即分配内存。全局变量和静态变量的存储是放在一块的，初始化的 全局变量和静态变量在一块区域， 未初始化的全局变量和未初始化的静态变量在相邻的另一块区域。 - 程序结束后由系统释放</p>
+<p>4、文字常量区 —常量字符串就是放在这里的。 程序结束后由系统释放</p>
+<p>5、程序代码区—存放函数体的二进制代码。</p>
+<p>例子程序</p>
+<p>这是一个前辈写的，非常详细</p>
+<div class="highlight"><pre><span class="c1">//main.cpp</span>
+<span class="k">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span> <span class="err">全局初始化区</span>
+<span class="n">char</span> <span class="o">*</span><span class="n">p1</span><span class="p">;</span> <span class="err">全局未初始化区 ...</span></pre></div> <a class="btn btn-info xsmall" href="http://Iceux.me/cccheng-xu-nei-cun-fen-pei.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://Iceux.me/windowsxia-puttypei-zhi-sessionbei-fen-fang-fa.html"><h2>windows下putty配置（session)备份方法</h2></a>
+        <div class= "well small"> Thu 11 April 2013
+
+by <a class="url fn" href="http://Iceux.me/author/iceux.html">Iceux</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>纯粹的笔记：<br />
+1. 开始-&gt;运行-&gt;regedit<br />
+2. 找到HKEY_CURRENT_USER\Software\SimonTatham<br />
+3. 在 SimonTatham 这个节点上点击右键，选择导出，保存成reg文件。  </p>
+<p>导入的时候直接运行reg文件。</p> <a class="btn btn-info xsmall" href="http://Iceux.me/windowsxia-puttypei-zhi-sessionbei-fen-fang-fa.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://Iceux.me/ssh-shi-yong-bi-ji.html"><h2>SSH 使用笔记</h2></a>
+        <div class= "well small"> Sun 07 April 2013
+
+by <a class="url fn" href="http://Iceux.me/author/iceux.html">Iceux</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><strong>免密码登录</strong><br />
+1.client 生成密钥对：ssh-keygen -t rsa  一路回车 生成的密钥对在～/.ssh/  下<br />
+2.拷贝公钥到server ：<a href="http://wiki.51osos.com/wiki/Scp">scp</a> ~/.ssh/id_rsa.pub username@host:~/.ssh/authorized_keys<br />
+3.修改server上的/etc/ssh/sshd_config  开启rsa认证<br />
+4.保证server上的权限如下：<br />
+～/.ssh 700 <br />
+~/.ssh/authorized_keys    644<br />
+之后就可以直接在client登录了</p>
+<p>碰到的问题：<br />
+Agent admitted failure to sign using the key<br />
+解决方法：<br />
+客户端 执行 ssh-add</p>
+<p>ps：clinet ...</p> <a class="btn btn-info xsmall" href="http://Iceux.me/ssh-shi-yong-bi-ji.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://Iceux.me/linuxxia-zhong-ying-hun-he-qing-kuang-xia-de-cde-stringchu-li-utf-8bian-ma.html"><h2>Linux下中英混合情况下的c++的string处理(UTF-8编码)</h2></a>
+        <div class= "well small"> Mon 18 March 2013
+
+by <a class="url fn" href="http://Iceux.me/author/iceux.html">Iceux</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><strong>首先清楚UTF-8的编码规则</strong></p>
+<p>1.对于单字节的符号，字节的第一位设为0，后面7位为这个符号的unicode码。因此对于英语字母，UTF-8编码和ASCII码是相同的。</p>
+<p>2.对于n字节的符号（n&gt;1），第一个字节的前n位都设为1，第n+1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的unicode码。</p>
+<p><strong>linux下c++ 解析混合字符串并用空格分隔，直接上代码：</strong></p>
+<div class="highlight"><pre><span class="vi">#include</span> <span class="o">&lt;</span><span class="nx">iostream</span><span class="o">&gt;</span>
+<span class="vi">#include</span> <span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span>
+<span class="nx">using</span> <span class="nx">namespace</span> <span class="nx">std</span><span class="p">;</span>
+<span class="bp">void</span> <span class="nx">add_s</span><span class="p">(</span><span class="kt">string</span><span class="o">&amp;</span> <span class="nx">st</span><span class="p">){</span>
+<span class="nx">int</span> <span class="n">flag</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="c1">//标记，用于在汉字之前插入空格</span>
+<span class="nb">for</span> <span class="p">(</span><span class="nx">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">st.length</span><span class="p">();</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+  <span class="k">if</span><span class="p">((</span><span class="nx">st</span><span class="err">[</span><span class="nx">i</span><span class="cp">]</span>)<span class="err">&amp;</span>0x80){//多字节编码的
+    if ...</pre></div> <a class="btn btn-info xsmall" href="http://Iceux.me/linuxxia-zhong-ying-hun-he-qing-kuang-xia-de-cde-stringchu-li-utf-8bian-ma.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://Iceux.me/gnu-autotoolsshi-yong.html"><h2>GNU autotools使用</h2></a>
+        <div class= "well small"> Wed 13 March 2013
+
+by <a class="url fn" href="http://Iceux.me/author/iceux.html">Iceux</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><strong>废话不多说直接上图了，各种关系相当清楚</strong><br />
+<img alt="AutoMake" src="https://lh5.googleusercontent.com/-4BUeQwSvprE/Upnl252wjOI/AAAAAAAAAIM/UgygUkkYqiQ/s800/automake.gif" />  </p>
+<p>具体文字解释<a href="http://docs.huihoo.com/gnu/linux1/makefile.html">看这里</a></p>
+<p>PS：如果configure.in里面定义了AM_PROG_LIBTOOL就需要使用libtoolize命令</p> <a class="btn btn-info xsmall" href="http://Iceux.me/gnu-autotoolsshi-yong.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://Iceux.me/libmicrohttpdso10cannot-open-shared-object-file-no-such-file-or-directory.html"><h2>libmicrohttpd.so.10:cannot open shared object file: No such file or directory</h2></a>
+        <div class= "well small"> Mon 11 March 2013
+
+by <a class="url fn" href="http://Iceux.me/author/iceux.html">Iceux</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>今天在试用libmicrohttpd 库编写程序时编译通过之后运行报错：</p>
+<div class="highlight"><pre><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">iceux</span> <span class="o">~</span><span class="p">]</span><span class="err">#</span> <span class="p">.</span><span class="o">/</span><span class="n">hellobrowser</span>
+<span class="p">.</span><span class="o">/</span><span class="n">hellobrowser</span><span class="o">:</span> <span class="n">error</span> <span class="k">while</span> <span class="n">loading</span> <span class="n">shared</span> <span class="n">libraries</span><span class="o">:</span> <span class="n">libmicrohttpd</span><span class="p">.</span><span class="n">so</span><span class="mf">.10</span><span class="o">:</span> 
+<span class="n">cannot</span> <span class="n">open</span> <span class="n">shared</span> <span class="n">object</span> <span class="n">file</span><span class="o">:</span> <span class="n">No</span> <span class="n">such</span> <span class="n">file</span> <span class="n">or</span> <span class="n">directory</span>
+</pre></div>
+
+
+<p>原因：由于 libmicrohttpd.so.10在/usr/local/lib/下
+解决方法：
+vi /etc/ld.so.conf
+添加一行:
+/usr/local/lib
+之后再执行</p>
+<div class="highlight"><pre><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">iceux</span> <span class="o">~</span><span class="p">]</span><span class="err">#</span> <span class="n">ldconfig</span>
+</pre></div>
+
+
+<p>使得生效。这样动态库就会包含/usr ...</p> <a class="btn btn-info xsmall" href="http://Iceux.me/libmicrohttpdso10cannot-open-shared-object-file-no-such-file-or-directory.html">read more</a></div>
+    </div>	
+				
+<div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="http://Iceux.me/index.html">1</a></li>
+    <li class=""><a href="http://Iceux.me/index2.html">2</a></li>
+
+    <li class="next"><a href="http://Iceux.me/index2.html">Next &rarr;</a></li>
+
+</ul>
+</div>
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                <li><a href="https://Iceux.me/feeds/all.atom.xml">&nbspRSS</a></li>
+                <li><a href="mailto:Iceux@Iceux.me">&nbspMail</a></li>
+                <li><a href="http://weibo.com/Iceux">&nbsp微博</a></li>
+                <li><a href="https://twitter.com/Iceux">&nbspTwitter</a></li>
+            </ul>
+            </div>
+            </div>
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="http://Iceux.me/category/cc.html">C/C++</a></li>
+                <li><a href="http://Iceux.me/category/linuxunix.html">Linux/Unix</a></li>
+                <li><a href="http://Iceux.me/category/windows.html">windows</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+                <li><a href="http://python.org/">Python.org</a></li>
+                <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+            </ul>
+            </div>
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="http://Iceux.me">Iceux</a> &copy; Iceux 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<!--<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>-->
+ 
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Iceux</title>
+    <meta name="description" content="">
+    <meta name="author" content="Iceux">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="http://Iceux.me/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="http://Iceux.me/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/local.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<div class="header">
+                <ul class="nav nav-pills pull-right">
+                    <li class="active"><a href="http://Iceux.me">Home</a></li>
+                    <li><a href="http://Iceux.me/pages/about.html">About</a></li>
+                    <li class=""><a href="http://Iceux.me/archives.html">Archives</a></li>
+
+                    <li class=""><a href="http://Iceux.me/tags.html">Tags</a></li>
+                </ul>
+                <h3 class="text-muted"><a href="http://Iceux.me">Iceux</a></h3>
+         </div>
+
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+        
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="http://Iceux.me/libmicrohttpdso10cannot-open-shared-object-file-no-such-file-or-directory.html"><h1>libmicrohttpd.so.10:cannot open shared object file: No such file or directory</h1></a>
+Mon 11 March 2013
+
+by <a class="url fn" href="http://Iceux.me/author/iceux.html">Iceux</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><p>今天在试用libmicrohttpd 库编写程序时编译通过之后运行报错：</p>
+<div class="highlight"><pre><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">iceux</span> <span class="o">~</span><span class="p">]</span><span class="err">#</span> <span class="p">.</span><span class="o">/</span><span class="n">hellobrowser</span>
+<span class="p">.</span><span class="o">/</span><span class="n">hellobrowser</span><span class="o">:</span> <span class="n">error</span> <span class="k">while</span> <span class="n">loading</span> <span class="n">shared</span> <span class="n">libraries</span><span class="o">:</span> <span class="n">libmicrohttpd</span><span class="p">.</span><span class="n">so</span><span class="mf">.10</span><span class="o">:</span> 
+<span class="n">cannot</span> <span class="n">open</span> <span class="n">shared</span> <span class="n">object</span> <span class="n">file</span><span class="o">:</span> <span class="n">No</span> <span class="n">such</span> <span class="n">file</span> <span class="n">or</span> <span class="n">directory</span>
+</pre></div>
+
+
+<p>原因：由于 libmicrohttpd.so.10在/usr/local/lib/下
+解决方法：
+vi /etc/ld.so.conf
+添加一行:
+/usr/local/lib
+之后再执行</p>
+<div class="highlight"><pre><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">iceux</span> <span class="o">~</span><span class="p">]</span><span class="err">#</span> <span class="n">ldconfig</span>
+</pre></div>
+
+
+<p>使得生效。这样动态库就会包含/usr/local/lib/了</p>
+<p>写在最后：
+官方给的 下载方法是 ：</p>
+<div class="highlight"><pre><span class="err">$</span> <span class="n">svn</span> <span class="n">checkout</span> <span class="n">https</span><span class="o">:</span><span class="c1">//gnunet.org/svn/libmicrohttpd/</span>
+</pre></div>
+
+
+<p>但这个里面没有configure 文件，需要自己生成，比较麻烦，容易失败。
+这里我使用的是University of Southern California&amp;lt站点上的文件,已经添加了configure文件，安装比较顺利.
+下载地址 <a href="http://mirrors.usc.edu/pub/gnu/libmicrohttpd/libmicrohttpd-0.9.5.tar.gz">点击这里</a>
+  *[University of Southern California&amp;lt]: "南加利福尼亚大学</p></div>
+        <hr />
+    </div>
+		
+<div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="http://Iceux.me/tag/libmicrohttpd.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                <li><a href="https://Iceux.me/feeds/all.atom.xml">&nbspRSS</a></li>
+                <li><a href="mailto:Iceux@Iceux.me">&nbspMail</a></li>
+                <li><a href="http://weibo.com/Iceux">&nbsp微博</a></li>
+                <li><a href="https://twitter.com/Iceux">&nbspTwitter</a></li>
+            </ul>
+            </div>
+            </div>
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="http://Iceux.me/category/cc.html">C/C++</a></li>
+                <li><a href="http://Iceux.me/category/linuxunix.html">Linux/Unix</a></li>
+                <li><a href="http://Iceux.me/category/windows.html">windows</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+                <li><a href="http://python.org/">Python.org</a></li>
+                <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+            </ul>
+            </div>
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="http://Iceux.me">Iceux</a> &copy; Iceux 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<!--<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>-->
+ 
+</body>
+</html>

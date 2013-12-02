@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Iceux</title><link href="http://Iceux.me/" rel="alternate"></link><link href="http://Iceux.me/feeds/all.atom.xml" rel="self"></link><id>http://Iceux.me/</id><updated>2013-11-23T15:58:45+01:00</updated><entry><title>Postfix 基本配置</title><link href="http://Iceux.me/postfix-ji-ben-pei-zhi.html" rel="alternate"></link><updated>2013-11-23T15:58:45+01:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2013-11-23:postfix-ji-ben-pei-zhi.html</id><summary type="html">&lt;p&gt;CentOS 5.X系统下默认使用的MTA是sendmail，安装postfix之前需要先卸载sendmail。&lt;br /&gt;
+&lt;strong&gt;卸载sendmail&lt;/strong&gt;  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@MyVPS ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c"&gt;# yum remove sendmail&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;安装postfix&lt;/strong&gt;  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@MyVPS ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c"&gt;# yum install postfix&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;更改默认MTA为postfix&lt;/strong&gt;  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@MyVPS ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c"&gt;# /usr/sbin/alternatives --set mta /usr/sbin/sendmail.postfix&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;配置文件&lt;/strong&gt; 
+配置文件在/etc/postfix/main.cf，默认安装情况下，postfix 的监听地址是localhost，如果只是用来发送邮件，默认配置就行。&lt;br /&gt;
+&lt;strong&gt;测试发信&lt;/strong&gt;  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@MyVPS ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c"&gt;# echo &amp;quot;test&amp;quot;|mail -s &amp;quot;title&amp;quot; XXX@XXX.com&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;之后可以去自己邮箱查看有没有收到。
+以上只是一些简单的发信配置，如果要配置收信可以参考&lt;a href="http://vbird.dic.ksu.edu.tw/linux_server/0380mail_2.php"&gt;postfix详细设置&lt;/a&gt;
+如果要支持POP3/IMAP 则需要安装devecot,具体参见&lt;a href="http://vbird.dic.ksu.edu.tw/linux_server/0380mail_3.php"&gt;这里&lt;/a&gt;
+附上信件传送流程与收信流程图：
+&lt;img alt="mail-flow" src="https://lh5.googleusercontent.com/-KTFOLYUJsbA/Upnf6Qy6MUI/AAAAAAAAAHs/THG-cW7PlBI/s800/mail-flow.gif" /&gt;&lt;br /&gt;
+&lt;strong&gt;其他：&lt;/strong&gt;&lt;br /&gt;
+postfix如何将收到的邮件自动转发到指定邮箱？&lt;br /&gt;
+在配置文件最后增加：always_bcc=XXX@XXX.com.&lt;/p&gt;</summary><category term="postfix"></category></entry><entry><title>'ab压测中出现"apr_poll: The timeout specified has expired (70007)"'</title><link href="http://Iceux.me/abya-ce-zhong-chu-xian-apr_poll-the-timeout-specified-has-expired-70007.html" rel="alternate"></link><updated>2013-11-13T07:25:27+01:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2013-11-13:abya-ce-zhong-chu-xian-apr_poll-the-timeout-specified-has-expired-70007.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;原因&lt;/strong&gt;：&lt;br /&gt;
+TCP连接耗尽：
+tail /var/log/message  可以看到：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;kernel: ip_conntrack: table full, dropping packet.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;解决办法：&lt;/strong&gt;&lt;br /&gt;
+查看ip_conntrack_max 值：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;cat /proc/sys/net/ipv4/netfilter/ip_conntrack_max
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;增大：  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; ”xxxxxx“&amp;gt;/proc/sys/net/ipv4/netfilter/ip_conntrack_max
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="apr_poll"></category></entry><entry><title>CentOS 下编译安装Mysql 5.6.14</title><link href="http://Iceux.me/centos-xia-bian-yi-an-zhuang-mysql-5614.html" rel="alternate"></link><updated>2013-11-11T11:31:21+01:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2013-11-11:centos-xia-bian-yi-an-zhuang-mysql-5614.html</id><summary type="html">&lt;p&gt;下载源码：&lt;br /&gt;
+&lt;a href="http://dev.mysql.com/downloads/mysql/"&gt;点击这里&lt;/a&gt;&lt;br /&gt;
+添加用户和组  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;groupadd mysql
+useradd mysql -g mysql -M -s /sbin/nologin
+&lt;span class="sb"&gt;```&lt;/span&gt;bash
+解压源码
+&lt;span class="sb"&gt;```&lt;/span&gt;bash
+tar -xzvf mysql.....
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;编译&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    cmake &lt;span class="se"&gt;\&lt;/span&gt;
+    -DCMAKE_INSTALL_PREFIX&lt;span class="o"&gt;=&lt;/span&gt;/usr/local/mysql &lt;span class="se"&gt;\ &lt;/span&gt;&lt;span class="c"&gt;#安装路径&lt;/span&gt;
+    -DMYSQL_DATADIR&lt;span class="o"&gt;=&lt;/span&gt;/usr/local/mysql/data &lt;span class="se"&gt;\ &lt;/span&gt;&lt;span class="c"&gt;#数据文件存放位置&lt;/span&gt;
+    -DSYSCONFDIR&lt;span class="o"&gt;=&lt;/span&gt;/etc &lt;span class="se"&gt;\ &lt;/span&gt;&lt;span class="c"&gt;#my.cnf路径&lt;/span&gt;
+    -DWITH_MYISAM_STORAGE_ENGINE&lt;span class="o"&gt;=&lt;/span&gt;1 &lt;span class="se"&gt;\ &lt;/span&gt;&lt;span class="c"&gt;#支持MyIASM引擎&lt;/span&gt;
+    -DWITH_INNOBASE_STORAGE_ENGINE&lt;span class="o"&gt;=&lt;/span&gt;1 &lt;span class="se"&gt;\ &lt;/span&gt;&lt;span class="c"&gt;#支持InnoDB引擎&lt;/span&gt;
+    -DWITH_MEMORY_STORAGE_ENGINE&lt;span class="o"&gt;=&lt;/span&gt;1 &lt;span class="se"&gt;\ &lt;/span&gt;&lt;span class="c"&gt;#支持Memory引擎&lt;/span&gt;
+    -DWITH_READLINE&lt;span class="o"&gt;=&lt;/span&gt;1 &lt;span class="se"&gt;\ &lt;/span&gt;&lt;span class="c"&gt;#快捷键功能&lt;/span&gt;
+    -DMYSQL_UNIX_ADDR&lt;span class="o"&gt;=&lt;/span&gt;/tmp/mysqld.sock &lt;span class="se"&gt;\ &lt;/span&gt;&lt;span class="c"&gt;#连接数据库socket路径&lt;/span&gt;
+    -DMYSQL_TCP_PORT&lt;span class="o"&gt;=&lt;/span&gt;3306 &lt;span class="se"&gt;\ &lt;/span&gt;&lt;span class="c"&gt;#端口&lt;/span&gt;
+    -DENABLED_LOCAL_INFILE&lt;span class="o"&gt;=&lt;/span&gt;1 &lt;span class="se"&gt;\ &lt;/span&gt;&lt;span class="c"&gt;#允许从本地导入数据&lt;/span&gt;
+    -DWITH_PARTITION_STORAGE_ENGINE&lt;span class="o"&gt;=&lt;/span&gt;1 &lt;span class="se"&gt;\ &lt;/span&gt;&lt;span class="c"&gt;#安装支持数据库分区&lt;/span&gt;
+    -DEXTRA_CHARSETS&lt;span class="o"&gt;=&lt;/span&gt;all &lt;span class="se"&gt;\ &lt;/span&gt;&lt;span class="c"&gt;#安装所有的字符集&lt;/span&gt;
+    -DDEFAULT_CHARSET&lt;span class="o"&gt;=&lt;/span&gt;utf8 &lt;span class="se"&gt;\ &lt;/span&gt;&lt;span class="c"&gt;#默认字符&lt;/span&gt;
+    -DDEFAULT_COLLATION&lt;span class="o"&gt;=&lt;/span&gt;utf8_general_ci
+
+
+
+
+
+    make &amp;amp;make install
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;安装数据库&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    scripts/mysql_install_db --user&lt;span class="o"&gt;=&lt;/span&gt;mysql --basedir&lt;span class="o"&gt;=&lt;/span&gt;/usr/local/mysql --datadir&lt;span class="o"&gt;=&lt;/span&gt;/usr/local/mysql/data
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ps：如果用/usr/local/mysql/scripts/mysql_install_db --user=mysql
+有可能会报如下错误：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    FATAL ERROR: Could not find ./bin/my_print_defaults 
+    If you are using a binary release, you must run this script from 
+    within the directory the archive extracted into. If you compiled 
+    MySQL yourself you must run &lt;span class="s1"&gt;&amp;#39;make install&amp;#39;&lt;/span&gt; first.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;之后根据提示设置密码，修改配置文件&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    To start mysqld at boot &lt;span class="nb"&gt;time &lt;/span&gt;you have to copy
+    support-files/mysql.server to the right place &lt;span class="k"&gt;for &lt;/span&gt;your system
+
+    PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
+    To &lt;span class="k"&gt;do &lt;/span&gt;so, start the server, &lt;span class="k"&gt;then &lt;/span&gt;issue the following commands:
+
+      /usr/local/mysql/bin/mysqladmin -u root password &lt;span class="s1"&gt;&amp;#39;new-password&amp;#39;&lt;/span&gt;
+      /usr/local/mysql/bin/mysqladmin -u root -h master password &lt;span class="s1"&gt;&amp;#39;new-password&amp;#39;&lt;/span&gt;
+
+    Alternatively you can run:
+
+      /usr/local/mysql/bin/mysql_secure_installation
+
+    which will also give you the option of removing the &lt;span class="nb"&gt;test&lt;/span&gt;
+&lt;span class="nb"&gt;    &lt;/span&gt;databases and anonymous user created by default.  This is
+    strongly recommended &lt;span class="k"&gt;for &lt;/span&gt;production servers.
+
+    See the manual &lt;span class="k"&gt;for &lt;/span&gt;more instructions.
+
+    You can start the MySQL daemon with:
+
+      &lt;span class="nb"&gt;cd&lt;/span&gt; . ; /usr/local/mysql/bin/mysqld_safe &amp;amp;
+
+    You can &lt;span class="nb"&gt;test &lt;/span&gt;the MySQL daemon with mysql-test-run.pl
+
+      &lt;span class="nb"&gt;cd &lt;/span&gt;mysql-test ; perl mysql-test-run.pl
+
+    Please report any problems with the ./bin/mysqlbug script!
+
+    The latest information about MySQL is available on the web at
+
+      http://www.mysql.com
+
+    Support MySQL by buying support/licenses at http://shop.mysql.com
+
+    New default config file was created as /usr/local/mysql/my.cnf and
+    will be used by default by the server when you start it.
+    You may edit this file to change server settings
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="mysql"></category></entry><entry><title>Flash 弹出设置但无法点击的问题</title><link href="http://Iceux.me/flash-dan-chu-she-zhi-dan-wu-fa-dian-ji-de-wen-ti.html" rel="alternate"></link><updated>2013-10-07T05:05:28+02:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2013-10-07:flash-dan-chu-she-zhi-dan-wu-fa-dian-ji-de-wen-ti.html</id><summary type="html">&lt;p&gt;访问这个链接：&lt;a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager07.html"&gt;http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager07&lt;/a&gt; 进行设置&lt;/p&gt;</summary><category term="Ubuntu flash 无法点击"></category></entry><entry><title>C/C++程序内存分配</title><link href="http://Iceux.me/cccheng-xu-nei-cun-fen-pei.html" rel="alternate"></link><updated>2013-05-22T02:21:18+02:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2013-05-22:cccheng-xu-nei-cun-fen-pei.html</id><summary type="html">&lt;p&gt;一个由C/C++编译的程序占用的内存分为以下几个部分&lt;/p&gt;
+&lt;p&gt;1、栈区（stack）— 程序运行时由编译器自动分配，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。程序结束时由编译器自动释放。&lt;/p&gt;
+&lt;p&gt;2、堆区（heap） — 在内存开辟另一块存储区域。一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS回收 。注意它与数据结构中的堆是两回事，分配方式倒是类似于链表，呵呵。&lt;/p&gt;
+&lt;p&gt;3、全局区（静态区）（static）—编译器编译时即分配内存。全局变量和静态变量的存储是放在一块的，初始化的 全局变量和静态变量在一块区域， 未初始化的全局变量和未初始化的静态变量在相邻的另一块区域。 - 程序结束后由系统释放&lt;/p&gt;
+&lt;p&gt;4、文字常量区 —常量字符串就是放在这里的。 程序结束后由系统释放&lt;/p&gt;
+&lt;p&gt;5、程序代码区—存放函数体的二进制代码。&lt;/p&gt;
+&lt;p&gt;例子程序&lt;/p&gt;
+&lt;p&gt;这是一个前辈写的，非常详细&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//main.cpp&lt;/span&gt;
+&lt;span class="k"&gt;int&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="err"&gt;全局初始化区&lt;/span&gt;
+&lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="err"&gt;全局未初始化区&lt;/span&gt;
+&lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;int&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="c1"&gt;// 栈&lt;/span&gt;
+  &lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;abc&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//栈&lt;/span&gt;
+  &lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//栈&lt;/span&gt;
+  &lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p3&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;123456&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//&amp;quot;123456\0&amp;quot;在常量区，p3在栈上。&lt;/span&gt;
+  &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="k"&gt;int&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="err"&gt;；&lt;/span&gt; &lt;span class="c1"&gt;//全局（静态）初始化区&lt;/span&gt;
+  &lt;span class="n"&gt;p1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;malloc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;10&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="n"&gt;p2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;malloc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;20&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="c1"&gt;//分配得来得10和20字节的区域就在堆区。&lt;/span&gt;
+  &lt;span class="n"&gt;strcpy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;p1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;123456&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;//123456\0放在常量区，编译器可能会将它与p3所指向的&amp;quot;123456&amp;quot;优化成一个地方。&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;C语言程序的内存分配方式&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1.内存分配方式
+内存分配方式有三种：
+[1]从静态存 储区域分配。内存在程序编译的时候就已经分配好，这块内存在程序的整个运行期间都存在。例如全局变量，static变量。&lt;br /&gt;
+[2]在栈上创建。 在执行函数时，函数内局部变量的存储单元都可以在栈上创建，函数执行结束时这些存储单元自动被释放。栈内存分配运算内置于处理器的指令集中，效率很高，但 是分配的内存容量有限。&lt;br /&gt;
+[3]从堆上分配，亦称动态内存分配。程序在运行的时候用malloc或new申请任意多少的内存，程序员自己负责在 何时用free或delete释放内存。动态内存的生存期由程序员决定，使用非常灵活，但如果在堆上分配了空间，就有责任回收它，否则运行的程序会出现内 存泄漏，频繁地分配和释放不同大小的堆空间将会产生堆内碎块。&lt;br /&gt;
+2.程序的内存空间&lt;br /&gt;
+一个程序将操作 系统分配给其运行的内存块分为4个区域，如下图所示。&lt;br /&gt;
+一个由C/C++编译的程序占用的内存分为以下几个部分,&lt;br /&gt;
+1、栈区（stack）—　 由编译器自动分配释放 ，存放为运行函数而分配的局部变量、函数参数、返回数据、返回地址等。其操作方式类似于数据结构中的栈。&lt;br /&gt;
+2、堆区（heap） —　 一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS回收 。分配方式类似于链表。&lt;br /&gt;
+3、全局区（静态区）（static） —存放全局变量、静态数据、常量。程序结束后由系统释放。&lt;br /&gt;
+4、文字常量区 —常量字符串就是放在这里的。 程序结束后由系统释放。&lt;br /&gt;
+5、程序代码区—存放函数体（类成员函数和全局函数）的二进制代码。&lt;br /&gt;
+下面给出例子程序，  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//全局初始化区&lt;/span&gt;
+&lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//全局未初始化区&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//栈&lt;/span&gt;
+&lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;abc&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//栈&lt;/span&gt;
+&lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//栈&lt;/span&gt;
+&lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p3&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;123456&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//123456在常量区，p3在栈上。&lt;/span&gt;
+&lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="c1"&gt;//全局（静态）初始化区&lt;/span&gt;
+&lt;span class="n"&gt;p1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="n"&gt;p2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="c1"&gt;//分配得来得和字节的区域就在堆区。&lt;/span&gt;
+&lt;span class="n"&gt;strcpy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;p1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;123456&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;//123456放在常量区，编译器可能会将它与p3所指向的&amp;quot;123456&amp;quot;优化成一个地方。&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;3．堆与栈的比较&lt;br /&gt;
+3.1申请方式&lt;br /&gt;
+stack: 由系统自动分配。 例如，声明在函数中一个局部变量 int b; 系统自动在栈中为b开辟空间  。&lt;br /&gt;
+heap: 需要程序员自己申请，并指明大小，在C中malloc函数，C++中是new运算符。&lt;br /&gt;
+如p1 = (char &lt;em&gt;)malloc(10); p1 = new char[10];&lt;br /&gt;
+如p2 = (char &lt;/em&gt;)malloc(10); p2 = new char[20];&lt;br /&gt;
+但是注意p1、p2本身是在栈中的 。&lt;br /&gt;
+3.2申请后系统的响应&lt;br /&gt;
+栈：只要栈的剩余空间大于所申请空间，系统将为程序提供内存，否则 将报异常提示栈溢出。&lt;br /&gt;
+堆：首先应该知道操作系统有一个记录空闲内存地址的链表，当系统收到程序的申请时，会遍历该链表，寻找第一个空间大于所 申请空间的堆结点，然后将该结点从空闲结点链表中删除，并将该结点的空间分配给程序  。&lt;br /&gt;
+对于大多数系统，会在这块内存空间中的首地址处记录本次 分配的大小，这样，代码中的delete语句才能正确的释放本内存空间。
+由于找到的堆结点的大小不一定正好等于申请的大小，系统会自动的将多 余的那部分重新放入空闲链表中。&lt;br /&gt;
+3.3申请大小的限制&lt;br /&gt;
+栈：在Windows下,栈是向低地址扩展的数据结构，是一块连续的内存的区域。这句话的意思是栈顶的地址和栈的最大容量是系统预先规定好的， 在 WINDOWS下，栈的大小是2M（也有的说是1M，总之是一个编译时就确定的常数），如果申请的空间超过栈的剩余空间时，将提示overflow。因 此，能从栈获得的空间较小。&lt;br /&gt;
+堆：堆是向高地址扩展的数据结构， 是不连续的内存区域。这是由于系统是用链表来存储的空闲内存地址的，自然是不连续的，而链表的遍历方向是由低地址向高地址。堆的大小受限于计算机系统中有 效的虚拟内存。由此可见，堆获得的空间比较灵活，也比较大。&lt;br /&gt;
+3.4申请效率的比较&lt;br /&gt;
+栈由系统自动分配，速度较快。但 程序员是无法控制的。
+堆是由new分配的内存，一般速度比较慢，而且容易产生内存碎片,不过用起来最方便。
+另外，在 WINDOWS下，最好的方式是用VirtualAlloc分配内存，他不是在堆，也不是栈，而是直接在进程的地址空间中保留一快内存，虽然用起来最不方 便。但是速度快，也最灵活。&lt;br /&gt;
+3.5堆和栈中的存储内容&lt;br /&gt;
+栈：在函数调用时，第一个进栈的是主函数中后的下一条指令（函数调用语句的 下一条可执行语句）的地址，然后是函数的各个参数，在大多数的C编译器中，参数是由右往左入栈的，然后是函数中的局部变量。注意静态变量是不入栈的。&lt;br /&gt;
+当本次函数调用结束后，局部变量先出栈，然后是参数，最后栈顶指针指向最开始存的地址，也就是主函数中的下一条指令，程序由该点继续运行。&lt;br /&gt;
+堆：一般是在堆的头部用一个字节存放堆的大小。堆中的具体内容有程序员安排。&lt;br /&gt;
+3.6存取效率的比较&lt;br /&gt;
+char s1[] = "a";&lt;br /&gt;
+char *s2 = "b";&lt;br /&gt;
+a是在运行时刻赋值的；而b是在编译时就确定的；但是，在以后的存取中，在栈上的数组比 指针所指向的字符串(例如堆)快。 比如：  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="err"&gt;　&lt;/span&gt;&lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+&lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;1234567890&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;1234567890&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;对应的汇编代码  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;];&lt;/span&gt;
+&lt;span class="mi"&gt;00401067&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="n"&gt;D&lt;/span&gt; &lt;span class="n"&gt;F1&lt;/span&gt; &lt;span class="n"&gt;mov&lt;/span&gt; &lt;span class="n"&gt;cl&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="n"&gt;byte&lt;/span&gt; &lt;span class="n"&gt;ptr&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;ebp&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="n"&gt;Fh&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="mi"&gt;0040106&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt; &lt;span class="mi"&gt;88&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="n"&gt;D&lt;/span&gt; &lt;span class="n"&gt;FC&lt;/span&gt; &lt;span class="n"&gt;mov&lt;/span&gt; &lt;span class="n"&gt;byte&lt;/span&gt; &lt;span class="n"&gt;ptr&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;ebp&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="o"&gt;],&lt;/span&gt;&lt;span class="n"&gt;cl&lt;/span&gt;
+&lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;];&lt;/span&gt;
+&lt;span class="mi"&gt;0040106&lt;/span&gt;&lt;span class="n"&gt;D&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="n"&gt;B&lt;/span&gt; &lt;span class="mi"&gt;55&lt;/span&gt; &lt;span class="n"&gt;EC&lt;/span&gt; &lt;span class="n"&gt;mov&lt;/span&gt; &lt;span class="n"&gt;edx&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="n"&gt;dword&lt;/span&gt; &lt;span class="n"&gt;ptr&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;ebp&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="mi"&gt;00401070&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt; &lt;span class="mi"&gt;01&lt;/span&gt; &lt;span class="n"&gt;mov&lt;/span&gt; &lt;span class="n"&gt;al&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="n"&gt;byte&lt;/span&gt; &lt;span class="n"&gt;ptr&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;edx&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="mi"&gt;00401073&lt;/span&gt; &lt;span class="mi"&gt;88&lt;/span&gt; &lt;span class="mi"&gt;45&lt;/span&gt; &lt;span class="n"&gt;FC&lt;/span&gt; &lt;span class="n"&gt;mov&lt;/span&gt; &lt;span class="n"&gt;byte&lt;/span&gt; &lt;span class="n"&gt;ptr&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;ebp&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="o"&gt;],&lt;/span&gt;&lt;span class="n"&gt;al&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;第一种在读取时直接就把字符串中的元素读到寄存器cl中，而第二种则要先 把指针值读到edx中，再根据edx读取字符，显然慢了。  &lt;/p&gt;
+&lt;p&gt;3.7小结&lt;br /&gt;
+堆和栈的主 要区别由以下几点：&lt;br /&gt;
+1、管理方式不同；&lt;br /&gt;
+2、空间大小不同；&lt;br /&gt;
+3、能否产生碎片不同；&lt;br /&gt;
+4、生长方向不同；&lt;br /&gt;
+5、分配方式不同；&lt;br /&gt;
+6、分配效率不同；&lt;br /&gt;
+管理方式：对于栈来讲，是由编译器自动管理，无需我们手工控制；对于堆来 说，释放工作由程序员控制，容易产生memory leak。&lt;br /&gt;
+空间大小：一般来讲在32位系统下，堆内存可以达到4G的空间，从这个角度来看 堆内存几乎是没有什么限制的。但是对于栈来讲，一般都是有一定的空间大小的，例如，在VC6下面，默认的栈空间大小是1M。当然，这个值可以修改。&lt;br /&gt;
+碎片问题：对于堆来讲，频繁的new/delete势必会造成内存空间的不连续，从而造成大量的碎片，使程序效率降低。对于栈来讲，则不会存在这个问 题，因为栈是先进后出的队列，他们是如此的一一对应，以至于永远都不可能有一个内存块从栈中间弹出，在他弹出之前，在他上面的后进的栈内容已经被弹出，详 细的可以参考数据结构。&lt;br /&gt;
+生长方向：对于堆来讲，生长方向是向上的，也就是向着内存地址增加的方向；对于栈来讲，它的生长方向是向下的，是向着 内存地址减小的方向增长。&lt;br /&gt;
+分配方式：堆都是动态分配的，没有静态分配的堆。栈有2种分配方式：静态分配和动态分配。静态分配是编译器完成的， 比如局部变量的分配。动态分配由malloca函数进行分配，但是栈的动态分配和堆是不同的，他的动态分配是由编译器进行释放，无需我们手工实现。&lt;br /&gt;
+分配效率：栈是机器系统提供的数据结构，计算机会在底层对栈提供支持：分配专门的寄存器存放栈的地址，压栈出栈都有专门的指令执行，这就决定了栈的效率 比较高。堆则是C/C++函数库提供的，它的机制是很复杂的，例如为了分配一块内存，库函数会按照一定的算法（具体的算法可以参考数据结构/操作系统）在 堆内存中搜索可用的足够大小的空间，如果没有足够大小的空间（可能是由于内存碎片太多），就有可能调用系统功能去增加程序数据段的内存空间，这样就有机会 分 到足够大小的内存，然后进行返回。显然，堆的效率比栈要低得多。&lt;br /&gt;
+从这里我们可以看到，堆和栈相比，由于大量new/delete的使用， 容易造成大量的内存碎片；由于没有专门的系统支持，效率很低；由于可能引发用户态和核心态的切换，内存的申请，代价变得更加昂贵。所以栈在程序中是应用最 广泛的，就算是函数的调用也利用栈去完成，函数调用过程中的参数，返回地址， EBP和局部变量都采用栈的方式存放。所以，我们推荐大家尽量用栈，而不是用堆。&lt;br /&gt;
+虽然栈有如此众多的好处，但是由于和堆相比不是那么灵活，有 时候分配大量的内存空间，还是用堆好一些。
+无论是堆还是栈，都要防止越界现象的发生（除非你是故意使其越界），因为越界的结果要么是程序崩 溃，要么是摧毁程序的堆、栈结构，产生以想不到的结果。&lt;br /&gt;
+4.new/delete与malloc/free比较&lt;br /&gt;
+从C++角度上说，使用new分配堆空间可以调用类的构造函数，而malloc()函数仅仅是一个函数调用，它不会调用构造函数，它所接受的参数是一个 unsigned long类型。同样，delete在释放堆空间之前会调用析构函数，而free函数则不会。  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;Time&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="nl"&gt;public:&lt;/span&gt;
+&lt;span class="n"&gt;Time&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;Time&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+&lt;span class="n"&gt;cout&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;call Time’s destructor by:&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="nl"&gt;private:&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;hour&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;min&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sec&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;string&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;span class="n"&gt;Time&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Time&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;h&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+&lt;span class="n"&gt;hour&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;min&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;sec&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;cout&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;call Time’s constructor by:&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+&lt;span class="n"&gt;Time&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;t1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;t1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Time&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;malloc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Time&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="n"&gt;free&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;Time&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;t2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;t2&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Time&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;t2&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;delete&lt;/span&gt; &lt;span class="n"&gt;t2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;system&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;PAUSE&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;EXIT_SUCCESS&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;结果：&lt;br /&gt;
+call Time’s constructor by:t2&lt;br /&gt;
+call Time’s destructor by:t2&lt;br /&gt;
+从结果可以看出，使用new/delete可以调用对象的构造函数与析构函数， 并且示例中调用的是一个非默认构造函数。但在堆上分配对象数组时，只能调用默认构造函数，不能调用其他任何构造函数。&lt;/p&gt;</summary></entry><entry><title>windows下putty配置（session)备份方法</title><link href="http://Iceux.me/windowsxia-puttypei-zhi-sessionbei-fen-fang-fa.html" rel="alternate"></link><updated>2013-04-11T12:07:07+02:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2013-04-11:windowsxia-puttypei-zhi-sessionbei-fen-fang-fa.html</id><summary type="html">&lt;p&gt;纯粹的笔记：&lt;br /&gt;
+1. 开始-&amp;gt;运行-&amp;gt;regedit&lt;br /&gt;
+2. 找到HKEY_CURRENT_USER\Software\SimonTatham&lt;br /&gt;
+3. 在 SimonTatham 这个节点上点击右键，选择导出，保存成reg文件。  &lt;/p&gt;
+&lt;p&gt;导入的时候直接运行reg文件。&lt;/p&gt;</summary><category term="putty备份"></category></entry><entry><title>SSH 使用笔记</title><link href="http://Iceux.me/ssh-shi-yong-bi-ji.html" rel="alternate"></link><updated>2013-04-07T03:39:21+02:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2013-04-07:ssh-shi-yong-bi-ji.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;免密码登录&lt;/strong&gt;&lt;br /&gt;
+1.client 生成密钥对：ssh-keygen -t rsa  一路回车 生成的密钥对在～/.ssh/  下&lt;br /&gt;
+2.拷贝公钥到server ：&lt;a href="http://wiki.51osos.com/wiki/Scp"&gt;scp&lt;/a&gt; ~/.ssh/id_rsa.pub username@host:~/.ssh/authorized_keys&lt;br /&gt;
+3.修改server上的/etc/ssh/sshd_config  开启rsa认证&lt;br /&gt;
+4.保证server上的权限如下：&lt;br /&gt;
+～/.ssh 700 &lt;br /&gt;
+~/.ssh/authorized_keys    644&lt;br /&gt;
+之后就可以直接在client登录了&lt;/p&gt;
+&lt;p&gt;碰到的问题：&lt;br /&gt;
+Agent admitted failure to sign using the key&lt;br /&gt;
+解决方法：&lt;br /&gt;
+客户端 执行 ssh-add&lt;/p&gt;
+&lt;p&gt;ps：clinet 开启代理命令&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt; ssh -CfNg -D 127.0.0.1:1080 username@host
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;结合chrom  插件SwitchySharp 呵呵你懂的..&lt;/p&gt;</summary><category term="SSH"></category></entry><entry><title>Linux下中英混合情况下的c++的string处理(UTF-8编码)</title><link href="http://Iceux.me/linuxxia-zhong-ying-hun-he-qing-kuang-xia-de-cde-stringchu-li-utf-8bian-ma.html" rel="alternate"></link><updated>2013-03-18T11:19:42+01:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2013-03-18:linuxxia-zhong-ying-hun-he-qing-kuang-xia-de-cde-stringchu-li-utf-8bian-ma.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;首先清楚UTF-8的编码规则&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1.对于单字节的符号，字节的第一位设为0，后面7位为这个符号的unicode码。因此对于英语字母，UTF-8编码和ASCII码是相同的。&lt;/p&gt;
+&lt;p&gt;2.对于n字节的符号（n&amp;gt;1），第一个字节的前n位都设为1，第n+1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的unicode码。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;linux下c++ 解析混合字符串并用空格分隔，直接上代码：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="vi"&gt;#include&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;iostream&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="vi"&gt;#include&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nx"&gt;using&lt;/span&gt; &lt;span class="nx"&gt;namespace&lt;/span&gt; &lt;span class="nx"&gt;std&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="bp"&gt;void&lt;/span&gt; &lt;span class="nx"&gt;add_s&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="nx"&gt;st&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+&lt;span class="nx"&gt;int&lt;/span&gt; &lt;span class="n"&gt;flag&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="c1"&gt;//标记，用于在汉字之前插入空格&lt;/span&gt;
+&lt;span class="nb"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;st.length&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+  &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nx"&gt;st&lt;/span&gt;&lt;span class="err"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;)&lt;span class="err"&gt;&amp;amp;&lt;/span&gt;0x80){//多字节编码的
+    if(flag){st.insert(i++,&amp;quot; &amp;quot;);flag=0;}
+    int w=0;
+    char c=st&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;;
+    while(c&lt;span class="ni"&gt;&amp;amp;0x80){c=c&amp;lt;&amp;lt;1;&lt;/span&gt;w++;}
+    i+=w;
+    st.insert(i,&amp;quot; &amp;quot;);
+    }
+    else flag=1;
+  }
+}
+int main(void){
+string ch_en=&amp;quot;这是English.这是汉字&amp;quot;;
+add_s(ch_en);
+cout&lt;span class="err"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;ch&lt;/span&gt;&lt;span class="na"&gt;_en&lt;/span&gt;&lt;span class="err"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="na"&gt;endl&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
+&lt;span class="na"&gt;return&lt;/span&gt; &lt;span class="na"&gt;0&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;运行结果&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;Iceux&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;out&lt;/span&gt;
+&lt;span class="err"&gt;这&lt;/span&gt; &lt;span class="err"&gt;是&lt;/span&gt; &lt;span class="n"&gt;English&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="err"&gt;这&lt;/span&gt; &lt;span class="err"&gt;是&lt;/span&gt; &lt;span class="err"&gt;汉&lt;/span&gt; &lt;span class="err"&gt;字&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>GNU autotools使用</title><link href="http://Iceux.me/gnu-autotoolsshi-yong.html" rel="alternate"></link><updated>2013-03-13T16:33:46+01:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2013-03-13:gnu-autotoolsshi-yong.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;废话不多说直接上图了，各种关系相当清楚&lt;/strong&gt;&lt;br /&gt;
+&lt;img alt="AutoMake" src="https://lh5.googleusercontent.com/-4BUeQwSvprE/Upnl252wjOI/AAAAAAAAAIM/UgygUkkYqiQ/s800/automake.gif" /&gt;  &lt;/p&gt;
+&lt;p&gt;具体文字解释&lt;a href="http://docs.huihoo.com/gnu/linux1/makefile.html"&gt;看这里&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;PS：如果configure.in里面定义了AM_PROG_LIBTOOL就需要使用libtoolize命令&lt;/p&gt;</summary><category term="autoconf automake"></category></entry><entry><title>libmicrohttpd.so.10:cannot open shared object file: No such file or directory</title><link href="http://Iceux.me/libmicrohttpdso10cannot-open-shared-object-file-no-such-file-or-directory.html" rel="alternate"></link><updated>2013-03-11T13:23:42+01:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2013-03-11:libmicrohttpdso10cannot-open-shared-object-file-no-such-file-or-directory.html</id><summary type="html">&lt;p&gt;今天在试用libmicrohttpd 库编写程序时编译通过之后运行报错：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;iceux&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;hellobrowser&lt;/span&gt;
+&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;hellobrowser&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;error&lt;/span&gt; &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="n"&gt;loading&lt;/span&gt; &lt;span class="n"&gt;shared&lt;/span&gt; &lt;span class="n"&gt;libraries&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;libmicrohttpd&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;so&lt;/span&gt;&lt;span class="mf"&gt;.10&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; 
+&lt;span class="n"&gt;cannot&lt;/span&gt; &lt;span class="n"&gt;open&lt;/span&gt; &lt;span class="n"&gt;shared&lt;/span&gt; &lt;span class="n"&gt;object&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;No&lt;/span&gt; &lt;span class="n"&gt;such&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt; &lt;span class="n"&gt;or&lt;/span&gt; &lt;span class="n"&gt;directory&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;原因：由于 libmicrohttpd.so.10在/usr/local/lib/下
+解决方法：
+vi /etc/ld.so.conf
+添加一行:
+/usr/local/lib
+之后再执行&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;iceux&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;ldconfig&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;使得生效。这样动态库就会包含/usr/local/lib/了&lt;/p&gt;
+&lt;p&gt;写在最后：
+官方给的 下载方法是 ：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;svn&lt;/span&gt; &lt;span class="n"&gt;checkout&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//gnunet.org/svn/libmicrohttpd/&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;但这个里面没有configure 文件，需要自己生成，比较麻烦，容易失败。
+这里我使用的是University of Southern California&amp;amp;lt站点上的文件,已经添加了configure文件，安装比较顺利.
+下载地址 &lt;a href="http://mirrors.usc.edu/pub/gnu/libmicrohttpd/libmicrohttpd-0.9.5.tar.gz"&gt;点击这里&lt;/a&gt;
+  *[University of Southern California&amp;amp;lt]: "南加利福尼亚大学&lt;/p&gt;</summary><category term="libmicrohttpd"></category></entry><entry><title>CentOS下vsftp的使用</title><link href="http://Iceux.me/centosxia-vsftpde-shi-yong.html" rel="alternate"></link><updated>2013-01-30T13:15:35+01:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2013-01-30:centosxia-vsftpde-shi-yong.html</id><summary type="html">&lt;p&gt;安装 &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;yum install vsftpd
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;配置文件在 /etc/vsftpd/vsftpd.conf&lt;br /&gt;
+以下是vsftpd.conf 的说明 以备以后使用：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# 是否允许匿名登录FTP服务器，默认设置为YES允许&lt;/span&gt;
+    &lt;span class="c"&gt;# 用户可使用用户名ftp或anonymous进行ftp登录，口令为用户的E-mail地址。&lt;/span&gt;
+    &lt;span class="c"&gt;# 如不允许匿名访问则设置为NO&lt;/span&gt;
+    &lt;span class="nv"&gt;anonymous_enable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;YES
+    &lt;span class="c"&gt;# 是否允许本地用户(即linux系统中的用户帐号)登录FTP服务器，默认设置为YES允许&lt;/span&gt;
+    &lt;span class="c"&gt;# 本地用户登录后会进入用户主目录，而匿名用户登录后进入匿名用户的下载目录/var/ftp/pub&lt;/span&gt;
+    &lt;span class="c"&gt;# 若只允许匿名用户访问，前面加上#注释掉即可阻止本地用户访问FTP服务器&lt;/span&gt;
+    &lt;span class="nv"&gt;local_enable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;YES
+    &lt;span class="c"&gt;# 是否允许本地用户对FTP服务器文件具有写权限，默认设置为YES允许&lt;/span&gt;
+    &lt;span class="nv"&gt;write_enable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;YES
+    &lt;span class="c"&gt;# 掩码，本地用户默认掩码为077&lt;/span&gt;
+    &lt;span class="c"&gt;# 你可以设置本地用户的文件掩码为缺省022，也可根据个人喜好将其设置为其他值&lt;/span&gt;
+    &lt;span class="c"&gt;#local_umask=022&lt;/span&gt;
+    &lt;span class="c"&gt;# 是否允许匿名用户上传文件，须将全局的write_enable=YES。默认为YES&lt;/span&gt;
+    &lt;span class="c"&gt;#anon_upload_enable=YES&lt;/span&gt;
+    &lt;span class="c"&gt;# 是否允许匿名用户创建新文件夹&lt;/span&gt;
+    &lt;span class="c"&gt;#anon_mkdir_write_enable=YES&lt;/span&gt;
+    &lt;span class="c"&gt;# 是否激活目录欢迎信息功能&lt;/span&gt;
+    &lt;span class="c"&gt;# 当用户用CMD模式首次访问服务器上某个目录时，FTP服务器将显示欢迎信息&lt;/span&gt;
+    &lt;span class="c"&gt;# 默认情况下，欢迎信息是通过该目录下的.message文件获得的&lt;/span&gt;
+    &lt;span class="c"&gt;# 此文件保存自定义的欢迎信息，由用户自己建立&lt;/span&gt;
+    &lt;span class="c"&gt;#dirmessage_enable=YES&lt;/span&gt;
+    &lt;span class="c"&gt;# 是否让系统自动维护上传和下载的日志文件&lt;/span&gt;
+    &lt;span class="c"&gt;# 默认情况该日志文件为/var/log/vsftpd.log,也可以通过下面的xferlog_file选项对其进行设定&lt;/span&gt;
+    &lt;span class="c"&gt;# 默认值为NO&lt;/span&gt;
+    &lt;span class="nv"&gt;xferlog_enable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;YES
+    &lt;span class="c"&gt;# Make sure PORT transfer connections originate from port 20 (ftp-data).&lt;/span&gt;
+    &lt;span class="c"&gt;# 是否设定FTP服务器将启用FTP数据端口的连接请求&lt;/span&gt;
+    &lt;span class="c"&gt;# ftp-data数据传输，21为连接控制端口&lt;/span&gt;
+    &lt;span class="nv"&gt;connect_from_port_20&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;YES
+    &lt;span class="c"&gt;# 设定是否允许改变上传文件的属主，与下面一个设定项配合使用&lt;/span&gt;
+    &lt;span class="c"&gt;# 注意，不推荐使用root用户上传文件&lt;/span&gt;
+    &lt;span class="c"&gt;#chown_uploads=YES&lt;/span&gt;
+    &lt;span class="c"&gt;# 设置想要改变的上传文件的属主，如果需要，则输入一个系统用户名&lt;/span&gt;
+    &lt;span class="c"&gt;# 可以把上传的文件都改成root属主。whoever：任何人&lt;/span&gt;
+    &lt;span class="c"&gt;#chown_username=whoever&lt;/span&gt;
+    &lt;span class="c"&gt;# 设定系统维护记录FTP服务器上传和下载情况的日志文件&lt;/span&gt;
+    &lt;span class="c"&gt;# /var/log/vsftpd.log是默认的，也可以另设其它&lt;/span&gt;
+    &lt;span class="c"&gt;#xferlog_file=/var/log/vsftpd.log&lt;/span&gt;
+    &lt;span class="c"&gt;# 是否以标准xferlog的格式书写传输日志文件&lt;/span&gt;
+    &lt;span class="c"&gt;# 默认为/var/log/xferlog，也可以通过xferlog_file选项对其进行设定&lt;/span&gt;
+    &lt;span class="c"&gt;# 默认值为NO&lt;/span&gt;
+    &lt;span class="c"&gt;#xferlog_std_format=YES&lt;/span&gt;
+    &lt;span class="c"&gt;# 以下是附加配置，添加相应的选项将启用相应的设置&lt;/span&gt;
+    &lt;span class="c"&gt;# 是否生成两个相似的日志文件&lt;/span&gt;
+    &lt;span class="c"&gt;# 默认在/var/log/xferlog和/var/log/vsftpd.log目录下&lt;/span&gt;
+    &lt;span class="c"&gt;# 前者是wu_ftpd类型的传输日志，可以利用标准日志工具对其进行分析；后者是vsftpd类型的日志&lt;/span&gt;
+    &lt;span class="c"&gt;#dual_log_enable&lt;/span&gt;
+    &lt;span class="c"&gt;# 是否将原本输出到/var/log/vsftpd.log中的日志，输出到系统日志&lt;/span&gt;
+    &lt;span class="c"&gt;#syslog_enable&lt;/span&gt;
+    &lt;span class="c"&gt;# 设置数据传输中断间隔时间，此语句表示空闲的用户会话中断时间为600秒&lt;/span&gt;
+    &lt;span class="c"&gt;# 即当数据传输结束后，用户连接FTP服务器的时间不应超过600秒。可以根据实际情况对该值进行修改&lt;/span&gt;
+    &lt;span class="c"&gt;#idle_session_timeout=600&lt;/span&gt;
+    &lt;span class="c"&gt;# 设置数据连接超时时间，该语句表示数据连接超时时间为120秒，可根据实际情况对其个修改&lt;/span&gt;
+    &lt;span class="c"&gt;#data_connection_timeout=120&lt;/span&gt;
+    &lt;span class="c"&gt;# 运行vsftpd需要的非特权系统用户，缺省是nobody&lt;/span&gt;
+    &lt;span class="c"&gt;#nopriv_user=ftpsecure&lt;/span&gt;
+    &lt;span class="c"&gt;# 是否识别异步ABOR请求。&lt;/span&gt;
+    &lt;span class="c"&gt;# 如果FTP client会下达“async ABOR”这个指令时，这个设定才需要启用&lt;/span&gt;
+    &lt;span class="c"&gt;# 而一般此设定并不安全，所以通常将其取消&lt;/span&gt;
+    &lt;span class="c"&gt;#async_abor_enable=YES&lt;/span&gt;
+    &lt;span class="c"&gt;# 是否以ASCII方式传输数据。默认情况下，服务器会忽略ASCII方式的请求。&lt;/span&gt;
+    &lt;span class="c"&gt;# 启用此选项将允许服务器以ASCII方式传输数据&lt;/span&gt;
+    &lt;span class="c"&gt;# 不过，这样可能会导致由”SIZE /big/file”方式引起的DoS攻击&lt;/span&gt;
+    &lt;span class="c"&gt;#ascii_upload_enable=YES&lt;/span&gt;
+    &lt;span class="c"&gt;#ascii_download_enable=YES&lt;/span&gt;
+    &lt;span class="c"&gt;# 登录FTP服务器时显示的欢迎信息&lt;/span&gt;
+    &lt;span class="c"&gt;# 如有需要，可在更改目录欢迎信息的目录下创建名为.message的文件，并写入欢迎信息保存后&lt;/span&gt;
+    &lt;span class="c"&gt;#ftpd_banner=Welcome to blah FTP service.&lt;/span&gt;
+    &lt;span class="c"&gt;# 黑名单设置。如果很讨厌某些email address，就可以使用此设定来取消他的登录权限&lt;/span&gt;
+    &lt;span class="c"&gt;# 可以将某些特殊的email address抵挡住。&lt;/span&gt;
+    &lt;span class="c"&gt;#deny_email_enable=YES&lt;/span&gt;
+    &lt;span class="c"&gt;# 当上面的deny_email_enable=YES时，可以利用这个设定项来规定哪些邮件地址不可登录vsftpd服务器&lt;/span&gt;
+    &lt;span class="c"&gt;# 此文件需用户自己创建，一行一个email address即可&lt;/span&gt;
+    &lt;span class="c"&gt;#banned_email_file=/etc/vsftpd/banned_emails&lt;/span&gt;
+    &lt;span class="c"&gt;# 用户登录FTP服务器后是否具有访问自己目录以外的其他文件的权限&lt;/span&gt;
+    &lt;span class="c"&gt;# 设置为YES时，用户被锁定在自己的home目录中，vsftpd将在下面chroot_list_file选项值的位置寻找chroot_list文件&lt;/span&gt;
+    &lt;span class="c"&gt;# 必须与下面的设置项配合&lt;/span&gt;
+    &lt;span class="c"&gt;#chroot_list_enable=YES&lt;/span&gt;
+    &lt;span class="c"&gt;# 被列入此文件的用户，在登录后将不能切换到自己目录以外的其他目录&lt;/span&gt;
+    &lt;span class="c"&gt;# 从而有利于FTP服务器的安全管理和隐私保护。此文件需自己建立&lt;/span&gt;
+    &lt;span class="c"&gt;#chroot_list_file=/etc/vsftpd/chroot_list&lt;/span&gt;
+    &lt;span class="c"&gt;# 是否允许递归查询。默认为关闭，以防止远程用户造成过量的I/O&lt;/span&gt;
+    &lt;span class="c"&gt;#ls_recurse_enable=YES&lt;/span&gt;
+    &lt;span class="c"&gt;# 是否允许监听。&lt;/span&gt;
+    &lt;span class="c"&gt;# 如果设置为YES，则vsftpd将以独立模式运行，由vsftpd自己监听和处理IPv4端口的连接请求&lt;/span&gt;
+    &lt;span class="nv"&gt;listen&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;YES
+    &lt;span class="c"&gt;# 设定是否支持IPV6。如要同时监听IPv4和IPv6端口，&lt;/span&gt;
+    &lt;span class="c"&gt;# 则必须运行两套vsftpd，采用两套配置文件&lt;/span&gt;
+    &lt;span class="c"&gt;# 同时确保其中有一个监听选项是被注释掉的&lt;/span&gt;
+    &lt;span class="c"&gt;#listen_ipv6=YES&lt;/span&gt;
+    &lt;span class="c"&gt;# 设置PAM外挂模块提供的认证服务所使用的配置文件名，即/etc/pam.d/vsftpd文件&lt;/span&gt;
+    &lt;span class="c"&gt;# 此文件中file=/etc/vsftpd/ftpusers字段，说明了PAM模块能抵挡的帐号内容来自文件/etc/vsftpd/ftpusers中&lt;/span&gt;
+    &lt;span class="c"&gt;#pam_service_name=vsftpd&lt;/span&gt;
+    &lt;span class="c"&gt;# 是否允许ftpusers文件中的用户登录FTP服务器，默认为NO&lt;/span&gt;
+    &lt;span class="c"&gt;# 若此项设为YES，则user_list文件中的用户允许登录FTP服务器&lt;/span&gt;
+    &lt;span class="c"&gt;# 而如果同时设置了userlist_deny=YES，则user_list文件中的用户将不允许登录FTP服务器，甚至连输入密码提示信息都没有&lt;/span&gt;
+    &lt;span class="c"&gt;#userlist_enable=YES/NO&lt;/span&gt;
+    &lt;span class="c"&gt;# 设置是否阻扯user_list文件中的用户登录FTP服务器，默认为YES&lt;/span&gt;
+    &lt;span class="c"&gt;#userlist_deny=YES/NO&lt;/span&gt;
+    &lt;span class="c"&gt;# 是否使用tcp_wrappers作为主机访问控制方式。&lt;/span&gt;
+    &lt;span class="c"&gt;# tcp_wrappers可以实现linux系统中网络服务的基于主机地址的访问控制&lt;/span&gt;
+    &lt;span class="c"&gt;# 在/etc目录中的hosts.allow和hosts.deny两个文件用于设置tcp_wrappers的访问控制&lt;/span&gt;
+    &lt;span class="c"&gt;# 前者设置允许访问记录，后者设置拒绝访问记录。&lt;/span&gt;
+    &lt;span class="c"&gt;# 如想限制某些主机对FTP服务器192.168.57.2的匿名访问，编缉/etc/hosts.allow文件，如在下面增加两行命令：&lt;/span&gt;
+    &lt;span class="c"&gt;# vsftpd:192.168.57.1:DENY 和vsftpd:192.168.57.9:DENY&lt;/span&gt;
+    &lt;span class="c"&gt;# 表明限制IP为192.168.57.1/192.168.57.9主机访问IP为192.168.57.2的FTP服务器&lt;/span&gt;
+    &lt;span class="c"&gt;# 此时FTP服务器虽可以PING通，但无法连接&lt;/span&gt;
+    &lt;span class="nv"&gt;tcp_wrappers&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;YES
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="vsftp"></category></entry><entry><title>Centos 教育网源</title><link href="http://Iceux.me/centos-jiao-yu-wang-yuan.html" rel="alternate"></link><updated>2013-01-22T13:16:36+01:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2013-01-22:centos-jiao-yu-wang-yuan.html</id><summary type="html">&lt;p&gt;安装完centos 之后难免需要yum update，而一个好的源可以减少更新时间，在校学生，教育网当然优先选择。以下是 北京市中国教育网 网络中心的源 速度教育网下非常给力.&lt;br /&gt;
+ps：操作之前最好先备份 mv /etc/yum.repos.d/CentOS-Base.repo  /etc/yum.repos.d/CentOS-Base.repo.bak   然后将一下内容粘贴到新建的CentOS-Base.repo 中，之后执行yum clean all   执行 yum update进行更新.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# CentOS-Base.repo&lt;/span&gt;
+&lt;span class="c"&gt;#&lt;/span&gt;
+&lt;span class="c"&gt;# The mirror system uses the connecting IP address of the client and the&lt;/span&gt;
+&lt;span class="c"&gt;# update status of each mirror to pick mirrors that are updated to and&lt;/span&gt;
+&lt;span class="c"&gt;# geographically close to the client.  You should use this for CentOS updates&lt;/span&gt;
+&lt;span class="c"&gt;# unless you are manually picking other mirrors.&lt;/span&gt;
+&lt;span class="c"&gt;#&lt;/span&gt;
+&lt;span class="c"&gt;# If the mirrorlist= does not work for you, as a fall back you can try the &lt;/span&gt;
+&lt;span class="c"&gt;# remarked out baseurl= line instead.&lt;/span&gt;
+&lt;span class="c"&gt;#&lt;/span&gt;
+&lt;span class="c"&gt;#&lt;/span&gt;
+
+&lt;span class="o"&gt;[&lt;/span&gt;base&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="nv"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;CentOS-&lt;span class="nv"&gt;$releasever&lt;/span&gt; - Base
+&lt;span class="c"&gt;#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;amp;arch=$basearch&amp;amp;repo=os&lt;/span&gt;
+&lt;span class="c"&gt;#baseurl=http://mirror.centos.org/centos/$releasever/os/$basearch/&lt;/span&gt;
+&lt;span class="c"&gt;#baseurl=http://centos.ustc.edu.cn/centos/$releasever/os/$basearch/&lt;/span&gt;
+&lt;span class="nv"&gt;baseurl&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;http://ftp.sjtu.edu.cn/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/os/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirrors.163.com/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/os/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirrors.sohu.com/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/os/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirrors.tuna.tsinghua.edu.cn/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/os/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirror.bjtu.edu.cn/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/os/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+
+&lt;span class="nv"&gt;gpgcheck&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;1
+&lt;span class="nv"&gt;gpgkey&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+
+&lt;span class="c"&gt;#released updates &lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;updates&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="nv"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;CentOS-&lt;span class="nv"&gt;$releasever&lt;/span&gt; - Updates
+&lt;span class="c"&gt;#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;amp;arch=$basearch&amp;amp;repo=updates&lt;/span&gt;
+&lt;span class="c"&gt;#baseurl=http://mirror.centos.org/centos/$releasever/updates/$basearch/&lt;/span&gt;
+&lt;span class="c"&gt;#baseurl=http://centos.ustc.edu.cn/centos/$releasever/updates/$basearch/&lt;/span&gt;
+&lt;span class="nv"&gt;baseurl&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;http://ftp.sjtu.edu.cn/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/updates/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirrors.163.com/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/updates/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirrors.sohu.com/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/updates/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirrors.tuna.tsinghua.edu.cn/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/updates/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirror.bjtu.edu.cn/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/updates/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+
+&lt;span class="nv"&gt;gpgcheck&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;1
+&lt;span class="nv"&gt;gpgkey&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+
+&lt;span class="c"&gt;#additional packages that may be useful&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;extras&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="nv"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;CentOS-&lt;span class="nv"&gt;$releasever&lt;/span&gt; - Extras
+&lt;span class="c"&gt;#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;amp;arch=$basearch&amp;amp;repo=extras&lt;/span&gt;
+&lt;span class="c"&gt;#baseurl=http://mirror.centos.org/centos/$releasever/extras/$basearch/&lt;/span&gt;
+&lt;span class="c"&gt;#baseurl=http://centos.ustc.edu.cn/centos/$releasever/extras/$basearch/&lt;/span&gt;
+&lt;span class="nv"&gt;baseurl&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;http://ftp.sjtu.edu.cn/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/extras/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirrors.163.com/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/extras/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirrors.sohu.com/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/extras/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirrors.tuna.tsinghua.edu.cn/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/extras/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirror.bjtu.edu.cn/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/extras/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+
+&lt;span class="nv"&gt;gpgcheck&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;1
+&lt;span class="nv"&gt;gpgkey&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+
+&lt;span class="c"&gt;#additional packages that extend functionality of existing packages&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;centosplus&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="nv"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;CentOS-&lt;span class="nv"&gt;$releasever&lt;/span&gt; - Plus
+&lt;span class="c"&gt;#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;amp;arch=$basearch&amp;amp;repo=centosplus&lt;/span&gt;
+&lt;span class="c"&gt;#baseurl=http://mirror.centos.org/centos/$releasever/centosplus/$basearch/&lt;/span&gt;
+&lt;span class="c"&gt;#baseurl=http://centos.ustc.edu.cn/centos/$releasever/centosplus/$basearch/&lt;/span&gt;
+&lt;span class="nv"&gt;baseurl&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;http://ftp.sjtu.edu.cn/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/centosplus/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirrors.163.com/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/centosplus/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirrors.sohu.com/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/centosplus/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirrors.tuna.tsinghua.edu.cn/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/centosplus/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirror.bjtu.edu.cn/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/centosplus/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+
+&lt;span class="nv"&gt;gpgcheck&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;1
+&lt;span class="nv"&gt;enabled&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;0
+&lt;span class="nv"&gt;gpgkey&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+
+&lt;span class="c"&gt;#contrib - packages by Centos Users&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;contrib&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="nv"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;CentOS-&lt;span class="nv"&gt;$releasever&lt;/span&gt; - Contrib
+&lt;span class="c"&gt;#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;amp;arch=$basearch&amp;amp;repo=contrib&lt;/span&gt;
+&lt;span class="c"&gt;#baseurl=http://mirror.centos.org/centos/$releasever/contrib/$basearch/&lt;/span&gt;
+&lt;span class="c"&gt;#baseurl=http://centos.ustc.edu.cn/centos/$releasever/contrib/$basearch/&lt;/span&gt;
+&lt;span class="nv"&gt;baseurl&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;http://ftp.sjtu.edu.cn/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/contrib/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirrors.163.com/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/contrib/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirrors.sohu.com/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/contrib/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirrors.tuna.tsinghua.edu.cn/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/contrib/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+http://mirror.bjtu.edu.cn/centos/&lt;span class="nv"&gt;$releasever&lt;/span&gt;/contrib/&lt;span class="nv"&gt;$basearch&lt;/span&gt;/
+
+&lt;span class="nv"&gt;gpgcheck&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;1
+&lt;span class="nv"&gt;enabled&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;0
+&lt;span class="nv"&gt;gpgkey&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="REPO"></category></entry><entry><title>2条可用的Connectify license Key</title><link href="http://Iceux.me/2tiao-ke-yong-de-connectify-license-key.html" rel="alternate"></link><updated>2013-01-08T14:03:18+01:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2013-01-08:2tiao-ke-yong-de-connectify-license-key.html</id><summary type="html">&lt;p&gt;3.6及以下版本的LicenseKey：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;Email&lt;/span&gt;&lt;span class="err"&gt;：&lt;/span&gt;&lt;span class="n"&gt;me&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;connectify&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;me&lt;/span&gt;
+&lt;span class="n"&gt;LicenseKey&lt;/span&gt;&lt;span class="err"&gt;：&lt;/span&gt;&lt;span class="n"&gt;QUADC8&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="n"&gt;WSSUC&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;JTYBLV&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;N9NUK2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;QTS5F&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;CCDVT&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;BKLXLH&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;FS2TXN&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="n"&gt;JFV4J&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;XXMSFX&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4L&lt;/span&gt;&lt;span class="n"&gt;KBNH&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;RK2PZ2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;LA&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;3.7版本的LicenseKey：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;Email&lt;/span&gt;&lt;span class="err"&gt;：&lt;/span&gt;&lt;span class="n"&gt;support&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;connectify&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;me&lt;/span&gt;
+&lt;span class="n"&gt;LicenseKey&lt;/span&gt;&lt;span class="err"&gt;：&lt;/span&gt;&lt;span class="n"&gt;U6TR3B&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;DZ4QWA&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;QQQFXQ&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="n"&gt;VD4Z1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;B8SQ1C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;CJDTBK&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;LXLFVH&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;KQ77D&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;VY2TXN&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="n"&gt;JFV4J&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;XXMSFX&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4L&lt;/span&gt;&lt;span class="n"&gt;KBNH&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;RK2PZ2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;LA&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="Connectify Key"></category></entry><entry><title>sql语句join用法</title><link href="http://Iceux.me/sqlyu-ju-joinyong-fa.html" rel="alternate"></link><updated>2012-12-23T14:27:19+01:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2012-12-23:sqlyu-ju-joinyong-fa.html</id><summary type="html">&lt;p&gt;JOIN多表连接查询，在很多情况下很有用处，刚好最近有用到，故写个笔记。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基本语法&lt;/strong&gt;  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;...&lt;/span&gt; &lt;span class="n"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;table1&lt;/span&gt; &lt;span class="n"&gt;INNER&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;LEFT&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;RIGHT&lt;/span&gt; &lt;span class="n"&gt;JOIN&lt;/span&gt; &lt;span class="n"&gt;table2&lt;/span&gt; &lt;span class="n"&gt;ON&lt;/span&gt; &lt;span class="n"&gt;condition&lt;/span&gt; &lt;span class="n"&gt;INNER&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;LEFT&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;RIGHT&lt;/span&gt; &lt;span class="n"&gt;JOIN&lt;/span&gt; &lt;span class="n"&gt;table3&lt;/span&gt; &lt;span class="n"&gt;ON&lt;/span&gt; &lt;span class="n"&gt;condition&lt;/span&gt; &lt;span class="p"&gt;...&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：&lt;br /&gt;
+table1, table2参数用于指定要将记录组合的表的名称。
+field1, field2参数指定被联接的字段的名称。且这些字段必须有相同的数据类型及包含相同类型的数据，但它们不需要有相同的名称。
+condition可以使用的关系比较运算符有：”=”， “&amp;lt;”， “&amp;gt;”， “&amp;lt;=”， “&amp;gt;=” 或 “&amp;lt;&amp;gt;”。
+在ON 之后还可以使用 WHERE ， ORDER BY  以及LIMIT 。&lt;/p&gt;
+&lt;p&gt;INNER JOIN
+其中的INNER 可以省略使用最为多。&lt;/p&gt;</summary><category term="SQL JOIN"></category></entry><entry><title>CentOS5下openvpn的安装及配置</title><link href="http://Iceux.me/centos5xia-openvpnde-an-zhuang-ji-pei-zhi.html" rel="alternate"></link><updated>2012-11-22T12:30:11+01:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2012-11-22:centos5xia-openvpnde-an-zhuang-ji-pei-zhi.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;安装&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;rpm&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Uhv&lt;/span&gt; &lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//apt.sw.be/redhat/el5/en/i386/rpmforge/RPMS/rpmforge-release-0.3.6-1.el5.rf.i386.rpm&lt;/span&gt;
+&lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;openvpn&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;配置&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;cp&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;R&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;share&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;openvpn&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;easy&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;rsa&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;openvpn&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="err"&gt;#或者下面的目录&lt;/span&gt;
+&lt;span class="cp"&gt;#cp -R /usr/share/doc/openvpn-*/easy-rsa /etc/openvpn&lt;/span&gt;
+&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;openvpn&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;easy&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;rsa&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mf"&gt;2.0&lt;/span&gt;
+&lt;span class="n"&gt;chmod&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/*&lt;/span&gt;
+&lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;vars&lt;/span&gt; &lt;span class="err"&gt;此文件内变量可编辑，默认即可&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;生成密钥，默认回车&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;clean&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;
+&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ca&lt;/span&gt; &lt;span class="n"&gt;server&lt;/span&gt; &lt;span class="err"&gt;#生成&lt;/span&gt;&lt;span class="n"&gt;CA&lt;/span&gt;&lt;span class="err"&gt;证书&lt;/span&gt;
+&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;server&lt;/span&gt; &lt;span class="n"&gt;server&lt;/span&gt; &lt;span class="err"&gt;#生成服务器证书&lt;/span&gt;
+&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="n"&gt;client1&lt;/span&gt; &lt;span class="err"&gt;#生成客户端证书，多个请多次执行&lt;/span&gt;
+&lt;span class="cp"&gt;#./build-key client2&lt;/span&gt;
+&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dh&lt;/span&gt; &lt;span class="err"&gt;#生成&lt;/span&gt;&lt;span class="n"&gt;Diffie&lt;/span&gt; &lt;span class="n"&gt;Hellman&lt;/span&gt;&lt;span class="err"&gt;参数&lt;/span&gt;
+&lt;span class="n"&gt;openvpn&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;genkey&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;secret&lt;/span&gt; &lt;span class="n"&gt;ta&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="err"&gt;#使用&lt;/span&gt;&lt;span class="n"&gt;tls&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;auth&lt;/span&gt;&lt;span class="err"&gt;验证加强安全&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;编辑服务端配置文件&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;cp&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;share&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;doc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;openvpn&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;2.1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sample&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;files&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;server&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;openvpn&lt;/span&gt;&lt;span class="err"&gt;#模板配置文件，&lt;/span&gt;&lt;span class="n"&gt;vim&lt;/span&gt;&lt;span class="err"&gt;打开修改&lt;/span&gt;
+&lt;span class="n"&gt;vim&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;openvpn&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;server&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;  &lt;span class="err"&gt;#修改以下内容&lt;/span&gt;
+&lt;span class="n"&gt;port&lt;/span&gt; &lt;span class="mi"&gt;1194&lt;/span&gt; &lt;span class="err"&gt;#默认监听端口，可修改&lt;/span&gt;
+&lt;span class="n"&gt;proto&lt;/span&gt; &lt;span class="n"&gt;udp&lt;/span&gt; &lt;span class="err"&gt;#默认&lt;/span&gt;&lt;span class="n"&gt;udp&lt;/span&gt;&lt;span class="err"&gt;协议，网络状况不好可选&lt;/span&gt;&lt;span class="n"&gt;tcp&lt;/span&gt;
+&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;tun&lt;/span&gt;
+&lt;span class="n"&gt;ca&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;openvpn&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;easy&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;rsa&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mf"&gt;2.0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;keys&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ca&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;crt&lt;/span&gt;
+&lt;span class="n"&gt;cert&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;openvpn&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;easy&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;rsa&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mf"&gt;2.0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;keys&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;server&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;crt&lt;/span&gt;
+&lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;openvpn&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;easy&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;rsa&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mf"&gt;2.0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;keys&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;server&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;
+&lt;span class="n"&gt;dh&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;openvpn&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;easy&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;rsa&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mf"&gt;2.0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;keys&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dh1024&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pem&lt;/span&gt;
+&lt;span class="n"&gt;tls&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;auth&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;openvpn&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;easy&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;rsa&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mf"&gt;2.0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;keys&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ta&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;span class="n"&gt;server&lt;/span&gt; &lt;span class="mf"&gt;10.8.0.0&lt;/span&gt; &lt;span class="mf"&gt;255.255.255.0&lt;/span&gt; &lt;span class="err"&gt;#客户端分配&lt;/span&gt;&lt;span class="n"&gt;IP&lt;/span&gt;
+&lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;redirect-gateway def1 bypass-dhcp&amp;quot;&lt;/span&gt;&lt;span class="err"&gt;#客户端自动路由&lt;/span&gt;
+&lt;span class="n"&gt;client&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;client&lt;/span&gt;
+&lt;span class="n"&gt;keepalive&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt; &lt;span class="mi"&gt;120&lt;/span&gt;
+&lt;span class="n"&gt;comp&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;lzo&lt;/span&gt;
+&lt;span class="n"&gt;persist&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;
+&lt;span class="n"&gt;persist&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;tun&lt;/span&gt;
+&lt;span class="n"&gt;status&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;openvpn&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;easy&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;rsa&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mf"&gt;2.0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;keys&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;openvpn&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;status&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;log&lt;/span&gt;
+&lt;span class="n"&gt;verb&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;
+&lt;span class="n"&gt;duplicate&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;cn&lt;/span&gt; &lt;span class="err"&gt;#一个证书可多次登录&lt;/span&gt;
+&lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;dhcp-option DNS 10.8.0.1&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;#同步&lt;/span&gt;&lt;span class="n"&gt;DNS&lt;/span&gt;
+&lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;dhcp-option DNS 8.8.8.8&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;dhcp-option DNS 8.8.4.4&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;修改内核及开启NAT转发&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;echo&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;proc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ip_forward&lt;/span&gt; &lt;span class="err"&gt;#启用转发&lt;/span&gt;
+&lt;span class="cp"&gt;#vi /etc/sysctl.conf &lt;/span&gt;
+&lt;span class="n"&gt;et&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ip_forward&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="err"&gt;改成&lt;/span&gt;&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ip_forward&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="err"&gt;保存。然后执行&lt;/span&gt; 
+&lt;span class="n"&gt;sysctl&lt;/span&gt; &lt;span class="err"&gt;–&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;
+&lt;span class="n"&gt;echo&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;echo 1 &amp;gt; /proc/sys/net/ipv4/ip_forward &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;rc&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt; &lt;span class="err"&gt;#加入启动项，也可修改&lt;/span&gt;&lt;span class="n"&gt;sysctl&lt;/span&gt;
+&lt;span class="n"&gt;iptables&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;nat&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt; &lt;span class="n"&gt;POSTROUTING&lt;/span&gt;  &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="n"&gt;eth0&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="n"&gt;MASQUERADE&lt;/span&gt;
+&lt;span class="cp"&gt;#iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o venet0 -j SNAT --to-source 1.2.3.4&lt;/span&gt;
+&lt;span class="n"&gt;service&lt;/span&gt; &lt;span class="n"&gt;iptalbes&lt;/span&gt; &lt;span class="n"&gt;save&lt;/span&gt; &lt;span class="err"&gt;#保存规则&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;启动openvpn:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;init&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;openvpn&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;其他：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果遭遇启动失败的情况，可以在配置文件中加上一行 log-append openvpn.log
+再尝试启动，然后到 /etc/openvpn/ 检查 openvpn.log 文件来查看错误发生原因
+最后执行一行&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;chkconfig&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;level&lt;/span&gt; &lt;span class="mi"&gt;235&lt;/span&gt; &lt;span class="n"&gt;openvpn&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;将 openvpn 加入启动项&lt;/p&gt;</summary><category term="openvpn"></category></entry><entry><title>mysql主键与普通索引(转)</title><link href="http://Iceux.me/mysqlzhu-jian-yu-pu-tong-suo-yin-zhuan.html" rel="alternate"></link><updated>2012-10-14T12:51:37+02:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2012-10-14:mysqlzhu-jian-yu-pu-tong-suo-yin-zhuan.html</id><summary type="html">&lt;h2&gt;一、什么是索引？&lt;/h2&gt;
+&lt;p&gt;索引用来快速地寻找那些具有特定值的记录，所有MySQL索引都以B-树的形式保存。如果没有索引，执行查询时MySQL必须从第一个记录开始扫描整个表的所有记录，直至找到符合要求的记录。表里面的记录数量越多，这个操作的代价就越高。如果作为搜索条件的列上已经创建了索引，MySQL无需扫描任何记录即可迅速得到目标记录所在的位置。如果表有1000个记录，通过索引查找记录至少要比顺序扫描记录快100倍。 假设我们创建了一个名为people的表：&lt;br /&gt;
+    CREATE TABLE people ( peopleid SMALLINT NOT NULL, name CHAR(50) NOT NULL )&lt;br /&gt;
+ 然后，我们完全随机把1000个不同name值插入到people表。 在数据文件中name列没有任何明确的次序。如果我们创建了name列的索引，MySQL将在索引中排序name列：对于索引中的每一项，MySQL在内部为它保存一个数据文件中实际记录所在位置的“指针”。因此，如果我们要查找name等于“Mike”记录的peopleid（SQL命令为“SELECT peopleid FROM people WHERE name=’Mike’;”），MySQL能够在name的索引中查找“Mike”值，然后直接转到数据文件中相应的行，准确地返回该行的peopleid（999）。在这个过程中，MySQL只需处理一个行就可以返回结果。如果没有“name”列的索引，MySQL要扫描数据文件中的所有记录，即1000个记录！显然，需要MySQL处理的记录数量越少，则它完成任务的速度就越快。&lt;/p&gt;
+&lt;h2&gt;二、索引的类型&lt;/h2&gt;
+&lt;p&gt;MySQL提供多种索引类型供选择： &lt;strong&gt;普通索引&lt;/strong&gt; 这是最基本的索引类型，而且它没有唯一性之类的限制。普通索引可以通过以下几种方式创建： 创建索引，例如CREATE INDEX &amp;lt;索引的名字&amp;gt; ON tablename (列的列表); 修改表，例如ALTER TABLE tablename ADD INDEX [索引的名字] (列的列表); 创建表的时候指定索引，例如CREATE TABLE tablename ( [...], INDEX [索引的名字] (列的列表) ); &lt;strong&gt;唯一性索引&lt;/strong&gt; 这种索引和前面的“普通索引”基本相同，但有一个区别：索引列的所有值都只能出现一次，即必须唯一。唯一性索引可以用以下几种方式创建： 创建索引，例如CREATE UNIQUE INDEX &amp;lt;索引的名字&amp;gt; ON tablename (列的列表); 修改表，例如ALTER TABLE tablename ADD UNIQUE [索引的名字] (列的列表); 创建表的时候指定索引，例如CREATE TABLE tablename ( [...], UNIQUE [索引的名字] (列的列表) ); &lt;strong&gt;主键&lt;/strong&gt; 主键是一种唯一性索引，但它必须指定为“PRIMARY KEY”。如果你曾经用过AUTO_INCREMENT类型的列，你可能已经熟悉主键之类的概念了。主键一般在创建表的时候指定，例如“CREATE TABLE tablename ( [...], PRIMARY KEY (列的列表) ); ”。但是，我们也可以通过修改表的方式加入主键，例如“ALTER TABLE tablename ADD PRIMARY KEY (列的列表); ”。每个表只能有一个主键。 &lt;strong&gt;全文索引&lt;/strong&gt;MySQL从3.23.23版开始支持全文索引和全文检索。在MySQL中，全文索引的索引类型为FULLTEXT。全文索引可以在VARCHAR或者TEXT类型的列上创建。它可以通过CREATE TABLE命令创建，也可以通过ALTER TABLE或CREATE INDEX命令创建。对于大规模的数据集，通过ALTER TABLE（或者CREATE INDEX）命令创建全文索引要比把记录插入带有全文索引的空表更快。本文下面的讨论不再涉及全文索引，要了解更多信息，请参见MySQL documentation。&lt;/p&gt;
+&lt;h3&gt;三、单列索引与多列索引&lt;/h3&gt;
+&lt;p&gt;索引可以是单列索引，也可以是多列索引。下面我们通过具体的例子来说明这两种索引的区别。假设有这样一个people表： CREATE TABLE people ( peopleid SMALLINT NOT NULL AUTO_INCREMENT, firstname CHAR(50) NOT NULL, lastname CHAR(50) NOT NULL, age SMALLINT NOT NULL, townid SMALLINT NOT NULL, PRIMARY KEY (peopleid) ); 下面是我们插入到这个people表的数据： 这个数据片段中有四个名字为“Mikes”的人（其中两个姓Sullivans，两个姓McConnells），有两个年龄为17岁的人，还有一个名字与众不同的Joe Smith。 这个表的主要用途是根据指定的用户姓、名以及年龄返回相应的peopleid。例如，我们可能需要查找姓名为Mike Sullivan、年龄17岁用户的peopleid（SQL命令为SELECT peopleid FROM people WHERE firstname=’Mike’ AND lastname=’Sullivan’ AND age=17;）。由于我们不想让MySQL每次执行查询就去扫描整个表，这里需要考虑运用索引。 首先，我们可以考虑在单个列上创建索引，比如firstname、lastname或者age列。如果我们创建firstname列的索引（ALTER TABLE people ADD INDEX firstname (firstname);），MySQL将通过这个索引迅速把搜索范围限制到那些firstname=’Mike’的记录，然后再在这个“中间结果集”上进行其他条件的搜索：它首先排除那些lastname不等于“Sullivan”的记录，然后排除那些age不等于17的记录。当记录满足所有搜索条件之后，MySQL就返回最终的搜索结果。 由于建立了firstname列的索引，与执行表的完全扫描相比，MySQL的效率提高了很多，但我们要求MySQL扫描的记录数量仍旧远远超过了实际所需要的。虽然我们可以删除firstname列上的索引，再创建lastname或者age列的索引，但总地看来，不论在哪个列上创建索引搜索效率仍旧相似。 为了提高搜索效率，我们需要考虑运用多列索引。如果为firstname、lastname和age这三个列创建一个多列索引，MySQL只需一次检索就能够找出正确的结果！下面是创建这个多列索引的SQL命令： ALTER TABLE people ADD INDEX fname_lname_age (firstname,lastname,age); 由于索引文件以B-树格式保存，MySQL能够立即转到合适的firstname，然后再转到合适的lastname，最后转到合适的age。在没有扫描数据文件任何一个记录的情况下，MySQL就正确地找出了搜索的目标记录！ 那么，如果在firstname、lastname、age这三个列上分别创建单列索引，效果是否和创建一个firstname、lastname、age的多列索引一样呢？答案是否定的，两者完全不同。当我们执行查询的时候，MySQL只能使用一个索引。如果你有三个单列的索引，MySQL会试图选择一个限制最严格的索引。但是，即使是限制最严格的单列索引，它的限制能力也肯定远远低于firstname、lastname、age这三个列上的多列索引。&lt;/p&gt;
+&lt;h3&gt;四、最左前缀&lt;/h3&gt;
+&lt;p&gt;多列索引还有另外一个优点，它通过称为最左前缀（Leftmost Prefixing）的概念体现出来。继续考虑前面的例子，现在我们有一个firstname、lastname、age列上的多列索引，我们称这个索引为fname_lname_age。当搜索条件是以下各种列的组合时，MySQL将使用fname_lname_age索引： firstname，lastname，age firstname，lastname firstname 从另一方面理解，它相当于我们创建了(firstname，lastname，age)、(firstname，lastname)以及(firstname)这些列组合上的索引。下面这些查询都能够使用这个fname_lname_age索引： SELECT peopleid FROM people WHERE firstname=’Mike’ AND lastname=’Sullivan’ AND age=’17′; SELECT peopleid FROM people WHERE firstname=’Mike’ AND lastname=’Sullivan’; SELECT peopleid FROM people WHERE firstname=’Mike’; The following queries cannot use the index at all: SELECT peopleid FROM people WHERE lastname=’Sullivan’; SELECT peopleid FROM people WHERE age=’17′; SELECT peopleid FROM people WHERE lastname=’Sullivan’ AND age=’17′;&lt;/p&gt;
+&lt;h3&gt;五、选择索引列&lt;/h3&gt;
+&lt;p&gt;在性能优化过程中，选择在哪些列上创建索引是最重要的步骤之一。可以考虑使用索引的主要有两种类型的列：在WHERE子句中出现的列，在join子句中出现的列。请看下面这个查询： SELECT age ## 不使用索引 FROM people WHERE firstname=’Mike’ ## 考虑使用索引 AND lastname=’Sullivan’ ## 考虑使用索引 这个查询与前面的查询略有不同，但仍属于简单查询。由于age是在SELECT部分被引用，MySQL不会用它来限制列选择操作。因此，对于这个查询来说，创建age列的索引没有什么必要。下面是一个更复杂的例子： SELECT people.age, ##不使用索引 town.name ##不使用索引 FROM people LEFT JOIN town ON people.townid=town.townid ##考虑使用索引 WHERE firstname=’Mike’ ##考虑使用索引 AND lastname=’Sullivan’ ##考虑使用索引 与前面的例子一样，由于firstname和lastname出现在WHERE子句中，因此这两个列仍旧有创建索引的必要。除此之外，由于town表的townid列出现在join子句中，因此我们需要考虑创建该列的索引。 那么，我们是否可以简单地认为应该索引WHERE子句和join子句中出现的每一个列呢？差不多如此，但并不完全。我们还必须考虑到对列进行比较的操作符类型。MySQL只有对以下操作符才使用索引：&amp;lt;，&amp;lt;=，=，&amp;gt;，&amp;gt;=，BETWEEN，IN，以及某些时候的LIKE。可以在LIKE操作中使用索引的情形是指另一个操作数不是以通配符（%或者_）开头的情形。例如，“SELECT peopleid FROM people WHERE firstname LIKE ‘Mich%’;”这个查询将使用索引，但“SELECT peopleid FROM people WHERE firstname LIKE ‘%ike’;”这个查询不会使用索引。&lt;/p&gt;
+&lt;h3&gt;六、分析索引效率&lt;/h3&gt;
+&lt;p&gt;现在我们已经知道了一些如何选择索引列的知识，但还无法判断哪一个最有效。MySQL提供了一个内建的SQL命令帮助我们完成这个任务，这就是EXPLAIN命令。EXPLAIN命令的一般语法是：EXPLAIN 。你可以在MySQL文档找到有关该命令的更多说明。下面是一个例子： EXPLAIN SELECT peopleid FROM people WHERE firstname=’Mike’ AND lastname=’Sullivan’ AND age=’17′; 这个命令将返回下面这种分析结果： 下面我们就来看看这个EXPLAIN分析结果的含义。 table：这是表的名字。 type：连接操作的类型。下面是MySQL文档关于ref连接类型的说明： “对于每一种与另一个表中记录的组合，MySQL将从当前的表读取所有带有匹配索引值的记录。如果连接操作只使用键的最左前缀，或者如果键不是UNIQUE或PRIMARY KEY类型（换句话说，如果连接操作不能根据键值选择出唯一行），则MySQL使用ref连接类型。如果连接操作所用的键只匹配少量的记录，则ref是一种好的连接类型。” 在本例中，由于索引不是UNIQUE类型，ref是我们能够得到的最好连接类型。 如果EXPLAIN显示连接类型是“ALL”，而且你并不想从表里面选择出大多数记录，那么MySQL的操作效率将非常低，因为它要扫描整个表。你可以加入更多的索引来解决这个问题。预知更多信息，请参见MySQL的手册说明。 possible_keys： 可能可以利用的索引的名字。这里的索引名字是创建索引时指定的索引昵称；如果索引没有昵称，则默认显示的是索引中第一个列的名字（在本例中，它是“firstname”）。默认索引名字的含义往往不是很明显。 Key： 它显示了MySQL实际使用的索引的名字。如果它为空（或NULL），则MySQL不使用索引。 key_len： 索引中被使用部分的长度，以字节计。在本例中，key_len是102，其中firstname占50字节，lastname占50字节，age占2字节。如果MySQL只使用索引中的firstname部分，则key_len将是50。 ref： 它显示的是列的名字（或单词“const”），MySQL将根据这些列来选择行。在本例中，MySQL根据三个常量选择行。 rows： MySQL所认为的它在找到正确的结果之前必须扫描的记录数。显然，这里最理想的数字就是1。 Extra： 这里可能出现许多不同的选项，其中大多数将对查询产生负面影响。在本例中，MySQL只是提醒我们它将用WHERE子句限制搜索结果集。&lt;/p&gt;
+&lt;h3&gt;七、索引的缺点&lt;/h3&gt;
+&lt;p&gt;到目前为止，我们讨论的都是索引的优点。事实上，索引也是有缺点的。 首先，索引要占用磁盘空间。通常情况下，这个问题不是很突出。但是，如果你创建每一种可能列组合的索引，索引文件体积的增长速度将远远超过数据文件。如果你有一个很大的表，索引文件的大小可能达到操作系统允许的最大文件限制。 第二，对于需要写入数据的操作，比如DELETE、UPDATE以及INSERT操作，索引会降低它们的速度。这是因为MySQL不仅要把改动数据写入数据文件，而且它还要把这些改动写入索引文件。 【结束语】在大型数据库中，索引是提高速度的一个关键因素。不管表的结构是多么简单，一次500000行的表扫描操作无论如何不会快。如果你的网站上也有这种大规模的表，那么你确实应该花些时间去分析可以采用哪些索引，并考虑是否可以改写查询以优化应用。要了解更多信息，请参见MySQL manual。另外注意，本文假定你所使用的MySQL是3.23版，部分查询不能在3.22版MySQL上执行。&lt;/p&gt;</summary><category term="索引 mysql"></category></entry><entry><title>解决win7下vc6.0不能打开文件</title><link href="http://Iceux.me/jie-jue-win7xia-vc60bu-neng-da-kai-wen-jian.html" rel="alternate"></link><updated>2012-04-13T14:17:37+02:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2012-04-13:jie-jue-win7xia-vc60bu-neng-da-kai-wen-jian.html</id><summary type="html">&lt;p&gt;visual c++ 6.0 是Microsoft 与1998年推出的IDE，虽然年代久远，Microsoft也推出了许多后续版本如visual studio 2008 及visual studio 2010 但时下仍有许多人在使用这个古董级的软件，并不是由于新版本的IDE不好，更多的是由于许许多多的Project 文件早期是由vc++6.0 所创建，如果迁移到新版的vs2010上多多少少会存在些问题.当然也由于vc++6.0 界面相对简洁，很适合新手使用及许多教材仍然使用vc++6.0作为指定的软件的缘故，因此vc++6.0仍然有许多使用者(尤其是学生).但，如果你使用的操作系统是Windows7，而且还装了office 2010,如果你还打算装个vc++6.0 那么很不幸，你可能会碰到你给抓狂的问题:
+&lt;img alt="img" src="https://lh5.googleusercontent.com/-rHB4igQ6G6k/UpnnMaCSEaI/AAAAAAAAAIk/QsUgDlW4LzE/s800/20120413_181050-300x144.png" /&gt;  &lt;/p&gt;
+&lt;p&gt;出现这中情况是因为你点击了File-&amp;gt;Open 或Project-&amp;gt;Add File to&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决办法：&lt;/strong&gt;&lt;br /&gt;
+1.&lt;a href="http://Iceux.net/wp-content/uploads/2012/11/20120413_211321.rar"&gt;下载&lt;/a&gt;解压得到FileToll.dll&lt;br /&gt;
+2.打开vc6.0 点击菜单栏里的Tools-&amp;gt;Coustomize 再选择选项卡如下图:&lt;br /&gt;
+&lt;img alt="img" src="https://lh4.googleusercontent.com/-o9Z7bf3EsGU/UpnnMTFlOjI/AAAAAAAAAIs/jG3uTrcuMc8/s800/20120413_212316-300x190.jpg" /&gt;&lt;br /&gt;
+点击Browse选择刚才下载解压出的文件，打开之后会在界面上出现：&lt;br /&gt;
+&lt;img alt="img" src="https://lh4.googleusercontent.com/-YkpfbcLPVSQ/UpnnMeLFldI/AAAAAAAAAIo/VGF516Ohpkc/s800/20120413_212814.jpg" /&gt;&lt;br /&gt;
+此时拖动A和O分别至File菜单下，和Project下。&lt;br /&gt;
+3.点击菜单栏里的Tools-&amp;gt;Coustomize 再选择选项卡如下图：&lt;br /&gt;
+&lt;img alt="img" src="https://lh3.googleusercontent.com/-2DzTZr2kgAA/UpnnNYPEDNI/AAAAAAAAAI8/37BMriR0eUg/s800/20120413_213413-300x190.jpg" /&gt; &lt;br /&gt;
+此时点击菜单Files呈现这样:&lt;br /&gt;
+&lt;img alt="img" src="https://lh6.googleusercontent.com/-7odHwm-dnUo/UpnnNVHjwzI/AAAAAAAAAI4/kXlVdPTeCKQ/s800/20120413_213702.jpg" /&gt;&lt;br /&gt;
+此时你可以选中Open 和Add Files 并按delete删除，至此大功告成，但千万别忘了这次退出时已经要点击File-&amp;gt;Exit,只有这样才会保存刚才的设置，否则。。呵呵下次打开还的再来一次。&lt;/p&gt;</summary><category term="vc6.0 win7"></category></entry></feed>

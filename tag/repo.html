@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Iceux</title>
+    <meta name="description" content="">
+    <meta name="author" content="Iceux">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="http://Iceux.me/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="http://Iceux.me/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/local.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<div class="header">
+                <ul class="nav nav-pills pull-right">
+                    <li class="active"><a href="http://Iceux.me">Home</a></li>
+                    <li><a href="http://Iceux.me/pages/about.html">About</a></li>
+                    <li class=""><a href="http://Iceux.me/archives.html">Archives</a></li>
+
+                    <li class=""><a href="http://Iceux.me/tags.html">Tags</a></li>
+                </ul>
+                <h3 class="text-muted"><a href="http://Iceux.me">Iceux</a></h3>
+         </div>
+
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+        
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="http://Iceux.me/centos-jiao-yu-wang-yuan.html"><h1>Centos 教育网源</h1></a>
+Tue 22 January 2013
+
+by <a class="url fn" href="http://Iceux.me/author/iceux.html">Iceux</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><p>安装完centos 之后难免需要yum update，而一个好的源可以减少更新时间，在校学生，教育网当然优先选择。以下是 北京市中国教育网 网络中心的源 速度教育网下非常给力.<br />
+ps：操作之前最好先备份 mv /etc/yum.repos.d/CentOS-Base.repo  /etc/yum.repos.d/CentOS-Base.repo.bak   然后将一下内容粘贴到新建的CentOS-Base.repo 中，之后执行yum clean all   执行 yum update进行更新.</p>
+<div class="highlight"><pre><span class="c"># CentOS-Base.repo</span>
+<span class="c">#</span>
+<span class="c"># The mirror system uses the connecting IP address of the client and the</span>
+<span class="c"># update status of each mirror to pick mirrors that are updated to and</span>
+<span class="c"># geographically close to the client.  You should use this for CentOS updates</span>
+<span class="c"># unless you are manually picking other mirrors.</span>
+<span class="c">#</span>
+<span class="c"># If the mirrorlist= does not work for you, as a fall back you can try the </span>
+<span class="c"># remarked out baseurl= line instead.</span>
+<span class="c">#</span>
+<span class="c">#</span>
+
+<span class="o">[</span>base<span class="o">]</span>
+<span class="nv">name</span><span class="o">=</span>CentOS-<span class="nv">$releasever</span> - Base
+<span class="c">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=os</span>
+<span class="c">#baseurl=http://mirror.centos.org/centos/$releasever/os/$basearch/</span>
+<span class="c">#baseurl=http://centos.ustc.edu.cn/centos/$releasever/os/$basearch/</span>
+<span class="nv">baseurl</span><span class="o">=</span>http://ftp.sjtu.edu.cn/centos/<span class="nv">$releasever</span>/os/<span class="nv">$basearch</span>/
+http://mirrors.163.com/centos/<span class="nv">$releasever</span>/os/<span class="nv">$basearch</span>/
+http://mirrors.sohu.com/centos/<span class="nv">$releasever</span>/os/<span class="nv">$basearch</span>/
+http://mirrors.tuna.tsinghua.edu.cn/centos/<span class="nv">$releasever</span>/os/<span class="nv">$basearch</span>/
+http://mirror.bjtu.edu.cn/centos/<span class="nv">$releasever</span>/os/<span class="nv">$basearch</span>/
+
+<span class="nv">gpgcheck</span><span class="o">=</span>1
+<span class="nv">gpgkey</span><span class="o">=</span>file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+
+<span class="c">#released updates </span>
+<span class="o">[</span>updates<span class="o">]</span>
+<span class="nv">name</span><span class="o">=</span>CentOS-<span class="nv">$releasever</span> - Updates
+<span class="c">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=updates</span>
+<span class="c">#baseurl=http://mirror.centos.org/centos/$releasever/updates/$basearch/</span>
+<span class="c">#baseurl=http://centos.ustc.edu.cn/centos/$releasever/updates/$basearch/</span>
+<span class="nv">baseurl</span><span class="o">=</span>http://ftp.sjtu.edu.cn/centos/<span class="nv">$releasever</span>/updates/<span class="nv">$basearch</span>/
+http://mirrors.163.com/centos/<span class="nv">$releasever</span>/updates/<span class="nv">$basearch</span>/
+http://mirrors.sohu.com/centos/<span class="nv">$releasever</span>/updates/<span class="nv">$basearch</span>/
+http://mirrors.tuna.tsinghua.edu.cn/centos/<span class="nv">$releasever</span>/updates/<span class="nv">$basearch</span>/
+http://mirror.bjtu.edu.cn/centos/<span class="nv">$releasever</span>/updates/<span class="nv">$basearch</span>/
+
+<span class="nv">gpgcheck</span><span class="o">=</span>1
+<span class="nv">gpgkey</span><span class="o">=</span>file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+
+<span class="c">#additional packages that may be useful</span>
+<span class="o">[</span>extras<span class="o">]</span>
+<span class="nv">name</span><span class="o">=</span>CentOS-<span class="nv">$releasever</span> - Extras
+<span class="c">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=extras</span>
+<span class="c">#baseurl=http://mirror.centos.org/centos/$releasever/extras/$basearch/</span>
+<span class="c">#baseurl=http://centos.ustc.edu.cn/centos/$releasever/extras/$basearch/</span>
+<span class="nv">baseurl</span><span class="o">=</span>http://ftp.sjtu.edu.cn/centos/<span class="nv">$releasever</span>/extras/<span class="nv">$basearch</span>/
+http://mirrors.163.com/centos/<span class="nv">$releasever</span>/extras/<span class="nv">$basearch</span>/
+http://mirrors.sohu.com/centos/<span class="nv">$releasever</span>/extras/<span class="nv">$basearch</span>/
+http://mirrors.tuna.tsinghua.edu.cn/centos/<span class="nv">$releasever</span>/extras/<span class="nv">$basearch</span>/
+http://mirror.bjtu.edu.cn/centos/<span class="nv">$releasever</span>/extras/<span class="nv">$basearch</span>/
+
+<span class="nv">gpgcheck</span><span class="o">=</span>1
+<span class="nv">gpgkey</span><span class="o">=</span>file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+
+<span class="c">#additional packages that extend functionality of existing packages</span>
+<span class="o">[</span>centosplus<span class="o">]</span>
+<span class="nv">name</span><span class="o">=</span>CentOS-<span class="nv">$releasever</span> - Plus
+<span class="c">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=centosplus</span>
+<span class="c">#baseurl=http://mirror.centos.org/centos/$releasever/centosplus/$basearch/</span>
+<span class="c">#baseurl=http://centos.ustc.edu.cn/centos/$releasever/centosplus/$basearch/</span>
+<span class="nv">baseurl</span><span class="o">=</span>http://ftp.sjtu.edu.cn/centos/<span class="nv">$releasever</span>/centosplus/<span class="nv">$basearch</span>/
+http://mirrors.163.com/centos/<span class="nv">$releasever</span>/centosplus/<span class="nv">$basearch</span>/
+http://mirrors.sohu.com/centos/<span class="nv">$releasever</span>/centosplus/<span class="nv">$basearch</span>/
+http://mirrors.tuna.tsinghua.edu.cn/centos/<span class="nv">$releasever</span>/centosplus/<span class="nv">$basearch</span>/
+http://mirror.bjtu.edu.cn/centos/<span class="nv">$releasever</span>/centosplus/<span class="nv">$basearch</span>/
+
+<span class="nv">gpgcheck</span><span class="o">=</span>1
+<span class="nv">enabled</span><span class="o">=</span>0
+<span class="nv">gpgkey</span><span class="o">=</span>file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+
+<span class="c">#contrib - packages by Centos Users</span>
+<span class="o">[</span>contrib<span class="o">]</span>
+<span class="nv">name</span><span class="o">=</span>CentOS-<span class="nv">$releasever</span> - Contrib
+<span class="c">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=contrib</span>
+<span class="c">#baseurl=http://mirror.centos.org/centos/$releasever/contrib/$basearch/</span>
+<span class="c">#baseurl=http://centos.ustc.edu.cn/centos/$releasever/contrib/$basearch/</span>
+<span class="nv">baseurl</span><span class="o">=</span>http://ftp.sjtu.edu.cn/centos/<span class="nv">$releasever</span>/contrib/<span class="nv">$basearch</span>/
+http://mirrors.163.com/centos/<span class="nv">$releasever</span>/contrib/<span class="nv">$basearch</span>/
+http://mirrors.sohu.com/centos/<span class="nv">$releasever</span>/contrib/<span class="nv">$basearch</span>/
+http://mirrors.tuna.tsinghua.edu.cn/centos/<span class="nv">$releasever</span>/contrib/<span class="nv">$basearch</span>/
+http://mirror.bjtu.edu.cn/centos/<span class="nv">$releasever</span>/contrib/<span class="nv">$basearch</span>/
+
+<span class="nv">gpgcheck</span><span class="o">=</span>1
+<span class="nv">enabled</span><span class="o">=</span>0
+<span class="nv">gpgkey</span><span class="o">=</span>file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+</pre></div></div>
+        <hr />
+    </div>
+		
+<div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="http://Iceux.me/tag/repo.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                <li><a href="https://Iceux.me/feeds/all.atom.xml">&nbspRSS</a></li>
+                <li><a href="mailto:Iceux@Iceux.me">&nbspMail</a></li>
+                <li><a href="http://weibo.com/Iceux">&nbsp微博</a></li>
+                <li><a href="https://twitter.com/Iceux">&nbspTwitter</a></li>
+            </ul>
+            </div>
+            </div>
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="http://Iceux.me/category/cc.html">C/C++</a></li>
+                <li><a href="http://Iceux.me/category/linuxunix.html">Linux/Unix</a></li>
+                <li><a href="http://Iceux.me/category/windows.html">windows</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+                <li><a href="http://python.org/">Python.org</a></li>
+                <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+            </ul>
+            </div>
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="http://Iceux.me">Iceux</a> &copy; Iceux 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<!--<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>-->
+ 
+</body>
+</html>

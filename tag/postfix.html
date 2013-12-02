@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Iceux</title>
+    <meta name="description" content="">
+    <meta name="author" content="Iceux">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="http://Iceux.me/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="http://Iceux.me/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/local.css" rel="stylesheet">
+    <link href="http://Iceux.me/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<div class="header">
+                <ul class="nav nav-pills pull-right">
+                    <li class="active"><a href="http://Iceux.me">Home</a></li>
+                    <li><a href="http://Iceux.me/pages/about.html">About</a></li>
+                    <li class=""><a href="http://Iceux.me/archives.html">Archives</a></li>
+
+                    <li class=""><a href="http://Iceux.me/tags.html">Tags</a></li>
+                </ul>
+                <h3 class="text-muted"><a href="http://Iceux.me">Iceux</a></h3>
+         </div>
+
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+        
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="http://Iceux.me/postfix-ji-ben-pei-zhi.html"><h1>Postfix 基本配置</h1></a>
+Sat 23 November 2013
+
+by <a class="url fn" href="http://Iceux.me/author/iceux.html">Iceux</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><p>CentOS 5.X系统下默认使用的MTA是sendmail，安装postfix之前需要先卸载sendmail。<br />
+<strong>卸载sendmail</strong>  </p>
+<div class="highlight"><pre><span class="o">[</span>root@MyVPS ~<span class="o">]</span><span class="c"># yum remove sendmail</span>
+</pre></div>
+
+
+<p><strong>安装postfix</strong>  </p>
+<div class="highlight"><pre><span class="o">[</span>root@MyVPS ~<span class="o">]</span><span class="c"># yum install postfix</span>
+</pre></div>
+
+
+<p><strong>更改默认MTA为postfix</strong>  </p>
+<div class="highlight"><pre><span class="o">[</span>root@MyVPS ~<span class="o">]</span><span class="c"># /usr/sbin/alternatives --set mta /usr/sbin/sendmail.postfix</span>
+</pre></div>
+
+
+<p><strong>配置文件</strong> 
+配置文件在/etc/postfix/main.cf，默认安装情况下，postfix 的监听地址是localhost，如果只是用来发送邮件，默认配置就行。<br />
+<strong>测试发信</strong>  </p>
+<div class="highlight"><pre><span class="o">[</span>root@MyVPS ~<span class="o">]</span><span class="c"># echo &quot;test&quot;|mail -s &quot;title&quot; XXX@XXX.com</span>
+</pre></div>
+
+
+<p>之后可以去自己邮箱查看有没有收到。
+以上只是一些简单的发信配置，如果要配置收信可以参考<a href="http://vbird.dic.ksu.edu.tw/linux_server/0380mail_2.php">postfix详细设置</a>
+如果要支持POP3/IMAP 则需要安装devecot,具体参见<a href="http://vbird.dic.ksu.edu.tw/linux_server/0380mail_3.php">这里</a>
+附上信件传送流程与收信流程图：
+<img alt="mail-flow" src="https://lh5.googleusercontent.com/-KTFOLYUJsbA/Upnf6Qy6MUI/AAAAAAAAAHs/THG-cW7PlBI/s800/mail-flow.gif" /><br />
+<strong>其他：</strong><br />
+postfix如何将收到的邮件自动转发到指定邮箱？<br />
+在配置文件最后增加：always_bcc=XXX@XXX.com.</p></div>
+        <hr />
+    </div>
+		
+<div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="http://Iceux.me/tag/postfix.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                <li><a href="https://Iceux.me/feeds/all.atom.xml">&nbspRSS</a></li>
+                <li><a href="mailto:Iceux@Iceux.me">&nbspMail</a></li>
+                <li><a href="http://weibo.com/Iceux">&nbsp微博</a></li>
+                <li><a href="https://twitter.com/Iceux">&nbspTwitter</a></li>
+            </ul>
+            </div>
+            </div>
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="http://Iceux.me/category/cc.html">C/C++</a></li>
+                <li><a href="http://Iceux.me/category/linuxunix.html">Linux/Unix</a></li>
+                <li><a href="http://Iceux.me/category/windows.html">windows</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+                <li><a href="http://python.org/">Python.org</a></li>
+                <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+            </ul>
+            </div>
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="http://Iceux.me">Iceux</a> &copy; Iceux 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<!--<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>-->
+ 
+</body>
+</html>
