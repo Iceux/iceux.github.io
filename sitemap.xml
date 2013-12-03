@@ -5,35 +5,35 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://Iceux.me/index.html</loc>
-<lastmod>2013-12-03T11:33:23-00:00</lastmod>
+<lastmod>2013-12-03T11:33:45-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://Iceux.me/archives.html</loc>
-<lastmod>2013-12-03T11:33:23-00:00</lastmod>
+<lastmod>2013-12-03T11:33:45-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://Iceux.me/tags.html</loc>
-<lastmod>2013-12-03T11:33:23-00:00</lastmod>
+<lastmod>2013-12-03T11:33:45-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://Iceux.me/categories.html</loc>
-<lastmod>2013-12-03T11:33:23-00:00</lastmod>
+<lastmod>2013-12-03T11:33:45-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://Iceux.me/pages/about.html</loc>
-<lastmod>2013-12-03T11:33:23-00:00</lastmod>
+<lastmod>2013-12-03T11:33:45-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.3</priority>
 </url>
