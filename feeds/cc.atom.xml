@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Iceux</title><link href="http://Iceux.me/" rel="alternate"></link><link href="http://Iceux.me/feeds/cc.atom.xml" rel="self"></link><id>http://Iceux.me/</id><updated>2013-05-22T02:21:18+02:00</updated><entry><title>C/C++程序内存分配</title><link href="http://Iceux.me/cccheng-xu-nei-cun-fen-pei.html" rel="alternate"></link><updated>2013-05-22T02:21:18+02:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2013-05-22:cccheng-xu-nei-cun-fen-pei.html</id><summary type="html">&lt;p&gt;一个由C/C++编译的程序占用的内存分为以下几个部分&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Iceux</title><link href="http://Iceux.me/" rel="alternate"></link><link href="http://Iceux.me/feeds/cc.atom.xml" rel="self"></link><id>http://Iceux.me/</id><updated>2013-05-22T02:21:18+08:00</updated><entry><title>C/C++程序内存分配</title><link href="http://Iceux.me/cccheng-xu-nei-cun-fen-pei.html" rel="alternate"></link><updated>2013-05-22T02:21:18+08:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2013-05-22:cccheng-xu-nei-cun-fen-pei.html</id><summary type="html">&lt;p&gt;一个由C/C++编译的程序占用的内存分为以下几个部分&lt;/p&gt;
 &lt;p&gt;1、栈区（stack）— 程序运行时由编译器自动分配，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。程序结束时由编译器自动释放。&lt;/p&gt;
 &lt;p&gt;2、堆区（heap） — 在内存开辟另一块存储区域。一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS回收 。注意它与数据结构中的堆是两回事，分配方式倒是类似于链表，呵呵。&lt;/p&gt;
 &lt;p&gt;3、全局区（静态区）（static）—编译器编译时即分配内存。全局变量和静态变量的存储是放在一块的，初始化的 全局变量和静态变量在一块区域， 未初始化的全局变量和未初始化的静态变量在相邻的另一块区域。 - 程序结束后由系统释放&lt;/p&gt;
@@ -160,7 +160,7 @@ a是在运行时刻赋值的；而b是在编译时就确定的；但是，在以
 &lt;p&gt;结果：&lt;br /&gt;
 call Time’s constructor by:t2&lt;br /&gt;
 call Time’s destructor by:t2&lt;br /&gt;
-从结果可以看出，使用new/delete可以调用对象的构造函数与析构函数， 并且示例中调用的是一个非默认构造函数。但在堆上分配对象数组时，只能调用默认构造函数，不能调用其他任何构造函数。&lt;/p&gt;</summary></entry><entry><title>Linux下中英混合情况下的c++的string处理(UTF-8编码)</title><link href="http://Iceux.me/linuxxia-zhong-ying-hun-he-qing-kuang-xia-de-cde-stringchu-li-utf-8bian-ma.html" rel="alternate"></link><updated>2013-03-18T11:19:42+01:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2013-03-18:linuxxia-zhong-ying-hun-he-qing-kuang-xia-de-cde-stringchu-li-utf-8bian-ma.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;首先清楚UTF-8的编码规则&lt;/strong&gt;&lt;/p&gt;
+从结果可以看出，使用new/delete可以调用对象的构造函数与析构函数， 并且示例中调用的是一个非默认构造函数。但在堆上分配对象数组时，只能调用默认构造函数，不能调用其他任何构造函数。&lt;/p&gt;</summary></entry><entry><title>Linux下中英混合情况下的c++的string处理(UTF-8编码)</title><link href="http://Iceux.me/linuxxia-zhong-ying-hun-he-qing-kuang-xia-de-cde-stringchu-li-utf-8bian-ma.html" rel="alternate"></link><updated>2013-03-18T11:19:42+08:00</updated><author><name>Iceux</name></author><id>tag:Iceux.me,2013-03-18:linuxxia-zhong-ying-hun-he-qing-kuang-xia-de-cde-stringchu-li-utf-8bian-ma.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;首先清楚UTF-8的编码规则&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;1.对于单字节的符号，字节的第一位设为0，后面7位为这个符号的unicode码。因此对于英语字母，UTF-8编码和ASCII码是相同的。&lt;/p&gt;
 &lt;p&gt;2.对于n字节的符号（n&amp;gt;1），第一个字节的前n位都设为1，第n+1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的unicode码。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;linux下c++ 解析混合字符串并用空格分隔，直接上代码：&lt;/strong&gt;&lt;/p&gt;
