@@ -4,288 +4,288 @@ xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitem
 xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
-<loc>Iceux.github.io/index.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/index.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/archives.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/archives.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/tags.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/tags.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/categories.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/categories.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/pages/about.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/pages/about.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.3</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/postfix-ji-ben-pei-zhi.html</loc>
+<loc>/postfix-ji-ben-pei-zhi.html</loc>
 <lastmod>2013-11-23T15:58:45-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/abya-ce-zhong-chu-xian-apr_poll-the-timeout-specified-has-expired-70007.html</loc>
+<loc>/abya-ce-zhong-chu-xian-apr_poll-the-timeout-specified-has-expired-70007.html</loc>
 <lastmod>2013-11-13T07:25:27-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/centos-xia-bian-yi-an-zhuang-mysql-5614.html</loc>
+<loc>/centos-xia-bian-yi-an-zhuang-mysql-5614.html</loc>
 <lastmod>2013-11-11T11:31:21-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/flash-dan-chu-she-zhi-dan-wu-fa-dian-ji-de-wen-ti.html</loc>
+<loc>/flash-dan-chu-she-zhi-dan-wu-fa-dian-ji-de-wen-ti.html</loc>
 <lastmod>2013-10-07T05:05:28-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/cccheng-xu-nei-cun-fen-pei.html</loc>
+<loc>/cccheng-xu-nei-cun-fen-pei.html</loc>
 <lastmod>2013-05-22T02:21:18-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/windowsxia-puttypei-zhi-sessionbei-fen-fang-fa.html</loc>
+<loc>/windowsxia-puttypei-zhi-sessionbei-fen-fang-fa.html</loc>
 <lastmod>2013-04-11T12:07:07-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/ssh-shi-yong-bi-ji.html</loc>
+<loc>/ssh-shi-yong-bi-ji.html</loc>
 <lastmod>2013-04-07T03:39:21-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/linuxxia-zhong-ying-hun-he-qing-kuang-xia-de-cde-stringchu-li-utf-8bian-ma.html</loc>
+<loc>/linuxxia-zhong-ying-hun-he-qing-kuang-xia-de-cde-stringchu-li-utf-8bian-ma.html</loc>
 <lastmod>2013-03-18T11:19:42-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/gnu-autotoolsshi-yong.html</loc>
+<loc>/gnu-autotoolsshi-yong.html</loc>
 <lastmod>2013-03-13T16:33:46-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/libmicrohttpdso10cannot-open-shared-object-file-no-such-file-or-directory.html</loc>
+<loc>/libmicrohttpdso10cannot-open-shared-object-file-no-such-file-or-directory.html</loc>
 <lastmod>2013-03-11T13:23:42-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/centosxia-vsftpde-shi-yong.html</loc>
+<loc>/centosxia-vsftpde-shi-yong.html</loc>
 <lastmod>2013-01-30T13:15:35-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/centos-jiao-yu-wang-yuan.html</loc>
+<loc>/centos-jiao-yu-wang-yuan.html</loc>
 <lastmod>2013-01-22T13:16:36-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/2tiao-ke-yong-de-connectify-license-key.html</loc>
+<loc>/2tiao-ke-yong-de-connectify-license-key.html</loc>
 <lastmod>2013-01-08T14:03:18-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/sqlyu-ju-joinyong-fa.html</loc>
+<loc>/sqlyu-ju-joinyong-fa.html</loc>
 <lastmod>2012-12-23T14:27:19-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/centos5xia-openvpnde-an-zhuang-ji-pei-zhi.html</loc>
+<loc>/centos5xia-openvpnde-an-zhuang-ji-pei-zhi.html</loc>
 <lastmod>2012-11-22T12:30:11-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/mysqlzhu-jian-yu-pu-tong-suo-yin-zhuan.html</loc>
+<loc>/mysqlzhu-jian-yu-pu-tong-suo-yin-zhuan.html</loc>
 <lastmod>2012-10-14T12:51:37-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/jie-jue-win7xia-vc60bu-neng-da-kai-wen-jian.html</loc>
+<loc>/jie-jue-win7xia-vc60bu-neng-da-kai-wen-jian.html</loc>
 <lastmod>2012-04-13T14:17:37-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/category/cc.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/category/cc.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/category/linuxunix.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/category/linuxunix.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/category/windows.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/category/windows.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/tag/vc60-win7.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/tag/vc60-win7.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/tag/autoconf-automake.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/tag/autoconf-automake.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/tag/suo-yin-mysql.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/tag/suo-yin-mysql.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/tag/postfix.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/tag/postfix.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/tag/libmicrohttpd.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/tag/libmicrohttpd.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/tag/mysql.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/tag/mysql.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/tag/repo.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/tag/repo.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/tag/vsftp.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/tag/vsftp.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/tag/sql-join.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/tag/sql-join.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/tag/ubuntu-flash-wu-fa-dian-ji.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/tag/ubuntu-flash-wu-fa-dian-ji.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/tag/openvpn.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/tag/openvpn.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/tag/apr_poll.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/tag/apr_poll.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/tag/connectify-key.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/tag/connectify-key.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/tag/puttybei-fen.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/tag/puttybei-fen.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/tag/ssh.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/tag/ssh.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>Iceux.github.io/author/iceux.html</loc>
-<lastmod>2014-12-14T12:33:17-00:00</lastmod>
+<loc>/author/iceux.html</loc>
+<lastmod>2014-12-14T12:43:13-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
